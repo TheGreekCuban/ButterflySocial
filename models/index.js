@@ -1,3 +1,5 @@
 module.exports = {
-  Example: require("./example")
+  User: require("./user"),
+  Stream: require("./stream"),
+  Messages: require("./messages")
 };
