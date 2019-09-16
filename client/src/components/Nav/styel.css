@@ -1,0 +1,18 @@
+.navbar-brand {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  color: red;
+}
+
+.nav-link {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: black;
+}
+
+.navbar-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-style: italic;
+  color: grey;
+}
