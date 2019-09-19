@@ -1,7 +1,7 @@
 const express = require("express");
 const randomstring = require("randomstring");
 const session = require("express-session");
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const mongoose = require("mongoose");
 const routes = require("./routes");
@@ -14,8 +14,9 @@ app.use(express.json());
 app.use(
   session({
     secret: randomstring.generate(),
-    store: new MongoStore({ url: process.env.MONGODB_URI || "mongodb://localhost/example_database",
-                            ttl: 14 * 24 * 60 * 60
+    store: new MongoStore({
+      url: process.env.MONGODB_URI || "mongodb://localhost/example_database",
+      ttl: 14 * 24 * 60 * 60
     })
   })
 );
@@ -30,7 +31,9 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/example_database");
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/example_database"
+);
 
 // Start the API server
 app.listen(PORT, function() {
