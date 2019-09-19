@@ -12,10 +12,8 @@ Perform a PUT request to "/api/streams" when save link on card is clicked
 PUT request should save user_id to stream document, and stream_id to user document
 */
 
-
 //Matches with "/api/streams"
-router.route("/")
-   .get(streamsController.findAll())
+router.route("/").get(streamsController.findAll);
 
 // Matches with "/api/examples/:id"
 // router
