@@ -2,9 +2,14 @@ import axios from "axios";
 
 export default {
   // Gets all examples
-  getExamples: function() {
-    return axios.get("/api/examples");
-  },
+  getStreams: function() {
+    return axios.get("/api/streams");
+  }
+};
+
+
+/*
+,
   // Gets the book with the given id
   getExample: function(id) {
     return axios.get("/api/examples/" + id);
@@ -20,4 +25,4 @@ export default {
   saveUser: function(userData) {
     return axios.post("/api/user", userData);
   }
-};
+  */
