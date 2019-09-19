@@ -10,6 +10,7 @@ import {
 import "./style.css";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const NavigationBar = (props)=> {
     return (
         <Navbar bg="dark" expand="lg">
@@ -36,6 +37,8 @@ const NavigationBar = (props)=> {
     )
 }
 =======
+=======
+>>>>>>> 0d6c0d2fdab8b994885801d7583d94c45907fc02
 const NavigationBar = props => {
   return (
     <Navbar bg="dark" expand="lg">
@@ -65,6 +68,9 @@ const NavigationBar = props => {
     </Navbar>
   );
 };
+<<<<<<< HEAD
 >>>>>>> 91d0c0b7a1bac33a78fa7ff2854dfa52db03d3e4
+=======
+>>>>>>> 0d6c0d2fdab8b994885801d7583d94c45907fc02
 
 export default NavigationBar;
