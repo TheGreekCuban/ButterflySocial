@@ -6,16 +6,24 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    minlength: 6,
-    maxlength: 15,
+    minlength: 4,
+    maxlength: 100,
+    required: true
+  },
+  username: {
+    type: String,
+    unique: true,
     required: true
   },
   password: {
     type: String,
-    minlength: 6,
-    maxlength: 15,
+    minlength: 8,
+    maxlength: 100,
     required: true
   },
+  date: { 
+    type: Date, default: Date.now
+   },
   streams: {
     type: Schema.Types.ObjectId,
     ref: "Stream"

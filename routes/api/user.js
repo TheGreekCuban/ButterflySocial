@@ -1,9 +1,23 @@
 const router = require("express").Router();
 const userController = require("../../controllers/userController");
+const { check } = require("express-validator");
 
 // Matches with "/api/user"
 router.route("/")
     .get(userController.findAll)
-    .post(userController.create);
+    .post([
+        // email must be an email
+        check("email", "Email field cannot be empty").not().isEmpty(),
+        check("email", "Invalid email please verify the email address you have provided").isEmail(),
+        check("email", "Email address must be between 4-100 characters long, please try again").isLength({ min: 5, max: 100 }),
+        // password must be at least 5 chars long
+        check("password", "Password must be between 8-100 characters long").isLength({ min: 8, max: 100 }),
+        check("password", "Password must include one lowercase character, one uppercase character,and a number.").matches(("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})")),
+        check("password").custom(function (value, { req }) {
+            if (value !== req.body.confirmPassword) {
+                throw new Error("Password confirmation is incorrect, please try again");
+            } else return true;
+        })
+    ],userController.create);
 
 module.exports = router;
