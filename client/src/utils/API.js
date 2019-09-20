@@ -7,6 +7,10 @@ export default {
   },
   searchStreams: function() {
     return axios.get("/api/search");
+  },
+  // Saves users to the database 
+  saveUser: function(userData) {
+    return axios.post("/api/user/signup", userData);
   }
 };
 
@@ -27,7 +31,7 @@ export default {
   },
   // Saves users to the database 
   saveUser: function(userData) {
-    return axios.post("/api/user", userData);
+    return axios.post("/api/user/signup", userData);
   }
 }
 */

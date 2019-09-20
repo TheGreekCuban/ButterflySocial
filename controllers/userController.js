@@ -7,6 +7,30 @@ const saltRounds = 10;
 const passport = require("passport");
 // Defining methods for the userController
 module.exports = {
+  logUserIn: function(username, password, done) {
+    console.log("LocalStrategy(function (username, password, done)");
+    console.log(username);
+    console.log(password);
+    db.User
+      .findOne( { email: username } )
+      .then( user => {
+      var userId = { id: user._id };
+      var hash = user.password;
+      if (!user) {
+          return done(null, false, { message: "Incorrect username." });
+      }
+      bcrypt.compare(password, hash, function(err, res) {
+          if (res === true) {
+          return done(null, userId);
+          }
+          if (err || !user) {
+          var error = new Error("Wrong email or password.");
+          error.status = 401;
+          return done(err);
+          }
+      });
+    });
+  },
   findAll: function(req, res) {
     db.User
       .find(req.query)

@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const userController = require("../../controllers/userController");
 const { check } = require("express-validator");
+const LocalStrategy = require("passport-local").Strategy;
 
-// Matches with "/api/user"
-router.route("/")
-    .get(userController.findAll)
+// Matches with "/api/user/signup"
+router.route("/signup/")
     .post([
         // email must be an email
         check("email", "Email field cannot be empty").not().isEmpty(),
@@ -19,5 +19,20 @@ router.route("/")
             } else return true;
         })
     ],userController.create);
+
+router.route("/login")
+    .post(
+        passport.authenticate("local", { failureRedirect: "/" }),
+            function(req, res) {
+                // db.User.update({ status: "active" }, { where: req.user });
+                console.log("try to redirect");
+                res.redirect("/");
+            }
+    );
+
+passport.use(
+    "local",
+    new LocalStrategy(userController.logUserIn)
+);
 
 module.exports = router;
