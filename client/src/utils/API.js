@@ -4,12 +4,7 @@ export default {
   // Gets all examples
   getStreams: function() {
     return axios.get("/api/streams");
-  }
-};
-
-
-/*
-,
+  },
   // Gets the book with the given id
   getExample: function(id) {
     return axios.get("/api/examples/" + id);
@@ -22,7 +17,9 @@ export default {
   saveExample: function(exampleData) {
     return axios.post("/api/examples", exampleData);
   },
+  // Saves users to the database 
   saveUser: function(userData) {
     return axios.post("/api/user", userData);
   }
-  */
+
+}
