@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express");
 const randomstring = require("randomstring");
 const session = require("express-session");
@@ -31,9 +32,13 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/example_database"
-);
+// mongoose.connect(
+//   process.env.REACT_APP_MONGODB_URI || "mongodb://localhost/example_database" , { 
+//     useNewUrlParser: true 
+// });
+
+//Using local connection for now
+mongoose.connect("mongodb://localhost/example_database");
 
 // Start the API server
 app.listen(PORT, function() {
