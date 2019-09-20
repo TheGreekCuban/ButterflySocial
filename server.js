@@ -16,7 +16,7 @@ app.use(
   session({
     secret: randomstring.generate(),
     store: new MongoStore({
-      url: process.env.MONGODB_URI || "mongodb://localhost/example_database",
+      url: process.env.REACT_APP_MONGODB_URI || "mongodb://localhost/example_database",
       ttl: 14 * 24 * 60 * 60
     })
   })
@@ -32,13 +32,13 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-// mongoose.connect(
-//   process.env.REACT_APP_MONGODB_URI || "mongodb://localhost/example_database" , { 
-//     useNewUrlParser: true 
-// });
+mongoose.connect(
+  process.env.REACT_APP_MONGODB_URI || "mongodb://localhost/example_database" , { 
+    useNewUrlParser: true 
+});
 
 //Using local connection for now
-mongoose.connect("mongodb://localhost/example_database");
+// mongoose.connect("mongodb://localhost/example_database");
 
 // Start the API server
 app.listen(PORT, function() {

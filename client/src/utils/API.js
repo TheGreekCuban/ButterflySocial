@@ -11,7 +11,10 @@ export default {
   // Saves users to the database 
   saveUser: function(userData) {
     return axios.post("/api/user/signup", userData);
-  }
+  },
+  logUserIn: function(userData) {
+    return axios.post("/api/user/login", userData);
+  } 
 };
 
 

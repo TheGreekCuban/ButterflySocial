@@ -1,10 +1,13 @@
 const router = require("express").Router();
 const userController = require("../../controllers/userController");
 const { check } = require("express-validator");
+// Authentication package
+const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
 // Matches with "/api/user/signup"
-router.route("/signup/")
+router
+    .route("/signup")
     .post([
         // email must be an email
         check("email", "Email field cannot be empty").not().isEmpty(),
@@ -20,7 +23,9 @@ router.route("/signup/")
         })
     ],userController.create);
 
-router.route("/login")
+// Matches with "/api/user/login"
+router
+    .route("/login")
     .post(
         passport.authenticate("local", { failureRedirect: "/" }),
             function(req, res) {

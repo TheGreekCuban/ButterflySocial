@@ -106,6 +106,7 @@ module.exports = {
 
 const loginAfterSignUp = (req, res, dbUser) => {
   let userId = { id: dbUser._id }
+    console.log(`user logged in ${userId}`)
             req.login(userId, function (error) {
                 if (error) {
                     console.log(`err obj : ${error}`)
