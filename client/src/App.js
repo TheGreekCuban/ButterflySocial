@@ -5,6 +5,7 @@ import NavigationBar from "./components/Nav";
 import Wrapper from "./components/Wrapper";
 import Home from "./pages/Home";
 import Streams from "./pages/Streams";
+import Search from "./pages/Search"
 
 class App extends Component {
   state = {
@@ -30,6 +31,7 @@ class App extends Component {
                 <Streams {...props} userID={this.state.userID} />
               )}
             />
+            <Route exact path="/api/search" render={(props) => <Search {...props} title={'SEARCH STREAMS BELOW'} />} />
           </Switch>
         </Wrapper>
       </Router>

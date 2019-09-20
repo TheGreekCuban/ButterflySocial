@@ -5,6 +5,14 @@ export default {
   getStreams: function() {
     return axios.get("/api/streams");
   },
+  searchStreams: function() {
+    return axios.get("/api/search");
+  }
+};
+
+
+/*
+,
   // Gets the book with the given id
   getExample: function(id) {
     return axios.get("/api/examples/" + id);
@@ -21,5 +29,5 @@ export default {
   saveUser: function(userData) {
     return axios.post("/api/user", userData);
   }
-
 }
+*/
