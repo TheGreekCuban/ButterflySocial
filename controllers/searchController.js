@@ -1,15 +1,20 @@
+// Defining methods for the searchController
 const db = require("../models");
+ 
 
-// Defining methods for the ExamplesController
 module.exports = {
   findAll: function(req, res) {
-    db.Example
-      .find(req.query)
-      .sort({ date: -1 })
-      .then(dbModel => res.json(dbModel))
+    db.Search
+      .find({})
+      .then(dbModel => { console.log("DB Model: ", dbModel)
+        return res.json(dbModel)})
       .catch(err => res.status(422).json(err));
   },
-  findById: function(req, res) {
+};
+ 
+ 
+/*
+findById: function(req, res) {
     db.Example
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
@@ -29,9 +34,4 @@ module.exports = {
   },
   remove: function(req, res) {
     db.Example
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  }
-};
+*/
