@@ -28,15 +28,16 @@ class SignupPage extends Component {
         });
       };
 
-      handleFormSubmit = event => {
+handleFormSubmit = { 
+    signup:  (event) => {
         event.preventDefault();
         if (this.state.email && this.state.password) {
-          API.saveUser({
+            API.saveUser({
             email: this.state.email,
             username: this.state.username,
             password: this.state.password,
             confirmPassword: this.state.confirmPassword
-          })
+            })
             .then(res => {
                 console.log(res.data._id)
                 this.setState({
@@ -45,7 +46,23 @@ class SignupPage extends Component {
             })
             .catch(err => console.log(err));
         }
-      };
+    },
+    login: (event) => {
+        event.preventDefault();
+        if (this.state.emailLogin && this.state.passwordLogin){
+            API.logUserIn({
+                username: this.state.email,
+                password: this.state.password
+            })
+            .then( res => {
+                this.setState({
+                    id : res.data._id
+                })
+            })
+            .catch( err => console.log(err));
+        }
+    }
+};
 
     render() {
         return(
@@ -80,7 +97,7 @@ class SignupPage extends Component {
                                         <input type="password" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleInputChange} className="form-control" id="inputPassword2" placeholder="Confirm password" required/>
                                     </div>
                                 </div>
-                                <button onClick={this.handleFormSubmit} disabled={!(this.state.username && this.state.password)} type="button" className="btn btn-primary btn-sm" id="register">Register</button>
+                                <button onClick={this.handleFormSubmit.signup} disabled={!(this.state.username && this.state.password)} type="button" className="btn btn-primary btn-sm" id="register">Register</button>
                             </form>
                             <h1 className="text-center mt-2 error">
                             </h1>
@@ -112,7 +129,7 @@ class SignupPage extends Component {
                                             <div className="forgot">
                                             <a href="#">Forgot password?</a>
                                     </div>
-                                            <button type="submit" className="btn btn-primary">Login</button>
+                                            <button onClick={this.handleFormSubmit.login} disabled={!(this.state.emailLogin && this.state.passwordLogin)} type="submit" className="btn btn-primary">Login</button>
 
                                         </form>
                                         </div>
