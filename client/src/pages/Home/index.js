@@ -11,9 +11,12 @@ class SignupPage extends Component {
         password: "",
         passwordLogin:"",
         confirmPassword: "",
+        id:"",
         redirectTo: null
       }
-
+      componentDidMount(){
+          console.log(this.state.id)
+      }
       handleInputChange = event => {
         const { name, value } = event.target;
         console.log(name)
@@ -34,7 +37,12 @@ class SignupPage extends Component {
             password: this.state.password,
             confirmPassword: this.state.confirmPassword
           })
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res.data._id)
+                this.setState({
+                    id : res.data._id
+                })
+            })
             .catch(err => console.log(err));
         }
       };
@@ -46,28 +54,28 @@ class SignupPage extends Component {
                     <h1 className="text-center">{this.props.title}</h1>
                         <Row>
                             <Col sm={6}>
-                            <h1 class="form-heading">Sign Up</h1>
+                            <h1 className="form-heading">Sign Up</h1>
                             <form action="POST" className="mt-1">
                                 <div className="form-group row">
-                                    <label for="email" className="col-sm-2 col-form-label">Email</label>
+                                    <label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
                                     <div className="col-sm-10">
-                                        <input type="email" name="email" className="form-control" id="email" placeholder="email@example.com" required autofocus value={this.state.email} onChange={this.handleInputChange} />
+                                        <input type="email" name="email" className="form-control" id="email" placeholder="email@example.com" required autoFocus value={this.state.email} onChange={this.handleInputChange} />
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label for="staticUserName" className="col-sm-2 col-form-label">Username</label>
+                                    <label htmlFor="staticUserName" className="col-sm-2 col-form-label">Username</label>
                                     <div className="col-sm-10">
                                         <input type="text" name="username" value={this.state.email.split("@")[0]} onChange={this.handleInputChange} readOnly className="form-control-plaintext" id="staticUserName" />
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label for="inputPassword1" className="col-sm-2 col-form-label">Password</label>
+                                    <label htmlFor="inputPassword1" className="col-sm-2 col-form-label">Password</label>
                                     <div className="col-sm-10">
                                         <input type="password" name="password" value={this.state.password} onChange={this.handleInputChange} className="form-control" id="inputPassword1" placeholder="Password" required/>
                                     </div>
                                 </div>
                                 <div className="form-group row">
-                                    <label for="inputPassword2" className="col-sm-2 col-form-label">Confirm Password</label>
+                                    <label htmlFor="inputPassword2" className="col-sm-2 col-form-label">Confirm Password</label>
                                     <div className="col-sm-10">
                                         <input type="password" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleInputChange} className="form-control" id="inputPassword2" placeholder="Confirm password" required/>
                                     </div>

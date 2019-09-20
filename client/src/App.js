@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavigationBar from "./components/Nav";
 import Wrapper from "./components/Wrapper";
-import SignupPage from "./pages/SignupPage";
+import Home from "./pages/Home";
 import Streams from "./pages/Streams";
 
 class App extends Component {
@@ -18,9 +18,9 @@ class App extends Component {
           <Switch>
             <Route
               exact
-              path="/register"
+              path="/"
               render={props => (
-                <SignupPage {...props} title={"WELCOME TO BUTTERFLY"} />
+                <Home {...props} title={"WELCOME TO BUTTERFLY"} />
               )}
             />
             <Route
