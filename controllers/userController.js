@@ -31,6 +31,17 @@ module.exports = {
       });
     });
   },
+  logout: function(req, res) {
+    if (req.user) {
+      req.logout()
+      req.session.destroy(function (err) {
+        console.log(err);
+      });
+      res.send({ msg: "logging out" })
+    } else {
+      res.send({ msg: "no user to log out"})
+    }
+  },
   findAll: function(req, res) {
     db.User
       .find(req.query)
@@ -138,8 +149,9 @@ passport.serializeUser(function (userId, done) {
 
 passport.deserializeUser(function (userId, done) {
   console.log("i got there")
-  db.User.findOne({ userId }).then(function (user) {
-      var userId = { id: user.get().id }
+  console.log(userId);
+  db.User.findOne({ _id: userId }, "username", (err, user) => {
+      // var userId = { id: user.get().id }
       console.log(userId)
       console.log("userId passport.deserializeUser")
       done(null, userId);

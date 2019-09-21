@@ -6,16 +6,32 @@ import Wrapper from "./components/Wrapper";
 import Home from "./pages/Home";
 import Streams from "./pages/Streams";
 import Search from "./pages/Search"
+import Axios from "axios";
 
 class App extends Component {
   state = {
     userID: 1234
   };
+  
+    //added logout function, pass into nav as props
+    handleLogout = event => {
+      event.preventDefault();
+      Axios.post("/api/user/logout")
+      .then(response => {
+        console.log(response)
+        if (response.status === 200) {
+        document.location.href = "/"
+        }
+      }).catch(error => {
+        console.log("Logout error")
+      })
+    }
+
   render() {
     return (
       <Router>
         <Wrapper>
-          <NavigationBar />
+          <NavigationBar logoutFunction={this.handleLogout}/>
           <Switch>
             <Route
               exact
