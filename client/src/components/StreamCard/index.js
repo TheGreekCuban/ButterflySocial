@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Col, CardTitle } from 'react-materialize';
+import API from "../../utils/API";
  
 export function StreamCard({children}) {
   return (
@@ -13,7 +14,7 @@ export function StreamCardItem(props) {
   console.log("PROPS: ", props)
   return(
     <Col m={7} s={12}>
-      <Card horizontal header={<CardTitle key={props.id}></CardTitle>} actions={[<a href='#'>This is a link</a>]}>
+      <Card horizontal header={<CardTitle key={props.id}></CardTitle>} actions={[<a data-streamID={props.id} data-userID={props.userID} onClick={props.saveFunction} href='#'>Subscribe</a>]}>
         <h1>{props.id}</h1>
         <h2>{props.date}</h2>
       </Card>

@@ -57,13 +57,13 @@ module.exports = {
   },
   findById: function(req, res) {
     db.User
-      .findById(req.params.id)
+      .findById(req.params.id).populate("streams")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
     db.User
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: req.params.id }, {$push: { streams: req.body.streamID}})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

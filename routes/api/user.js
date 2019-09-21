@@ -40,6 +40,13 @@ router
     .route("/logout")
     .post(userController.logout);
 
+router
+    .route("/:id")
+    .put(userController.update)
+
+router.route("/:id")
+    .get(userController.findById);
+
 passport.use(
     "local",
     new LocalStrategy(userController.logUserIn)

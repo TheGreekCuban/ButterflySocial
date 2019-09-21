@@ -9,10 +9,10 @@ module.exports = {
   }
 };
 
-/*
-findById: function(req, res) {
-    db.Example
-      .findById(req.params.id)
+/*  findById: function(req, res) {
+    console.log(req.params.id)
+    db.Stream
+      .findById(req.params.id).populate("streams")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
