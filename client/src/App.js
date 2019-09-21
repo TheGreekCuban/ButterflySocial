@@ -26,14 +26,14 @@ class App extends Component {
             />
             <Route
               exact
-              path="/api/streams"
+              path="/streams"
               render={props => (
                 <Streams {...props} userID={this.state.userID} />
               )}
             />
             <Route 
               exact 
-              path="/api/search" 
+              path="/search" 
               render={props => (
                 <Search {...props} title={'SEARCH STREAMS BELOW'} />
               )}
