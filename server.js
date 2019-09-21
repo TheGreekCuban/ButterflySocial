@@ -10,15 +10,21 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
+
+const option = {
+  url: process.env.REACT_APP_MONGODB_URI || "mongodb://localhost/example_database",
+  ttl: 14 * 24 * 60 * 60
+}
+const sessionStore  = new MongoStore(option)
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   session({
     secret: randomstring.generate(),
-    store: new MongoStore({
-      url: process.env.REACT_APP_MONGODB_URI || "mongodb://localhost/example_database",
-      ttl: 14 * 24 * 60 * 60
-    })
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false
   })
 );
 app.use(passport.initialize());

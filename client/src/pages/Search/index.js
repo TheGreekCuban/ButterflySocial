@@ -19,24 +19,27 @@ class Search extends Component {
  
     componentDidMount() {
       this.searchStreams()
+      console.log(this.props.userID);
     }
  
-    // addUserToStream = event => {
-    //   event.preventDefault()
-    //   console.log("ID: ", this.state.streams._id)
-      // API.addUserToStream({
-      //   userID: this.props.userID,
-      //   streamId: this.state.
-      // })
-    //}
+    addUserToStream = event => {
+      event.preventDefault()
+      const userID = event.target.getAttribute("data-userID")
+      const saveData = {
+        streamID : event.target.getAttribute("data-streamID")
+      }
+      API.addUserToStream(userID, saveData)
+    }
  
     render() {
         return (
-        <StreamCard>
-          {this.state.streams.map(element => (
-            <StreamCardItem id={element._id} name={element.streamName} date={element.dateCreated}/>
-        ))}
-        </StreamCard>
+          <div className="container">
+            <StreamCard>
+              {this.state.streams.map(element => (
+                <StreamCardItem id={element._id} name={element.streamName} date={element.dateCreated} userID={this.props.userID} saveFunction={this.addUserToStream}/>
+            ))}
+            </StreamCard>
+        </div>
         )
     }
 }

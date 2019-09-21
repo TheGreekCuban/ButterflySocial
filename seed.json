@@ -10,7 +10,7 @@
         "messages": "Hello, this is my first message!"
     },
     {
-        "steamName": "Test 2 Stream",
+        "streamName": "Test 2 Stream",
         "dateCreated": "10/21/2019",
         "users": [
             "Allen",
@@ -20,7 +20,7 @@
         "messages": "Hello, this is my second message!"   
     },
     {
-        "steamName": "Test 3 Stream",
+        "streamName": "Test 3 Stream",
         "dateCreated": "10/19/2019",
         "users": [
             "Allen",

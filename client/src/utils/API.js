@@ -14,6 +14,9 @@ export default {
   },
   logUserIn: function(userData) {
     return axios.post("/api/user/login", userData);
+  },
+  addUserToStream: function(userID, streamID) {
+    return axios.put("/api/user/" + userID, streamID)
   } 
 };
 

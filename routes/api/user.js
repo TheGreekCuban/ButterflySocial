@@ -29,11 +29,23 @@ router
     .post(
         passport.authenticate("local", { failureRedirect: "/" }),
             function(req, res) {
-                // db.User.update({ status: "active" }, { where: req.user });
+                // db.User.update({ status: "active" }, { req.user });
                 console.log("try to redirect");
-                res.redirect("/");
+                res.json(req.user);
             }
     );
+
+// route for handling logging out
+router
+    .route("/logout")
+    .post(userController.logout);
+
+router
+    .route("/:id")
+    .put(userController.update)
+
+router.route("/:id")
+    .get(userController.findById);
 
 passport.use(
     "local",

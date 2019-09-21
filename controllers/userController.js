@@ -31,6 +31,17 @@ module.exports = {
       });
     });
   },
+  logout: function(req, res) {
+    if (req.user) {
+      req.logout()
+      req.session.destroy(function (err) {
+        console.log(err);
+      });
+      res.send({ msg: "logging out" })
+    } else {
+      res.send({ msg: "no user to log out"})
+    }
+  },
   findAll: function(req, res) {
     db.User
       .find(req.query)
@@ -46,13 +57,13 @@ module.exports = {
   },
   findById: function(req, res) {
     db.User
-      .findById(req.params.id)
+      .findById(req.params.id).populate("streams")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
     db.User
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: req.params.id }, {$push: { streams: req.body.streamID}})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -86,9 +97,21 @@ module.exports = {
             // Store hash in your password DB.
             db.User.create(dataToBeStored)
             .then( dbUser => {
-              console.log(dbUser)
-              loginAfterSignUp(req, res, dbUser)
-              res.json(dbUser)
+              // console.log(dbUser)
+              // loginAfterSignUp(req, res, dbUser)
+              // res.json(dbUser)
+              let userId = { id: dbUser._id }
+                console.log(userId)
+              req.login(userId, function (error) {
+                console.log(`req.login(userId`)
+                if (error) {
+                      console.log(`err obj : ${error}`)
+                      res.send(error)
+                } else {
+                    console.log(req.user.id)
+                    res.json(dbUser)
+                }
+            })
             })
             .catch( (err) => {
                 if (err) {
@@ -106,8 +129,9 @@ module.exports = {
 
 const loginAfterSignUp = (req, res, dbUser) => {
   let userId = { id: dbUser._id }
-    console.log(`user logged in ${userId}`)
+    console.log(userId)
             req.login(userId, function (error) {
+              console.log(`req.login(userId`)
                 if (error) {
                     console.log(`err obj : ${error}`)
                     res.send(error)
@@ -118,12 +142,18 @@ const loginAfterSignUp = (req, res, dbUser) => {
 }
 
 passport.serializeUser(function (userId, done) {
+  console.log("userId passport.serializeUser")
+  console.log(userId)
   done(null, userId);
 });
 
 passport.deserializeUser(function (userId, done) {
-  db.User.findOne({ where: userId }).then(function (user) {
-      var userId = { id: user.get().id }
+  console.log("i got there")
+  console.log(userId);
+  db.User.findOne({ _id: userId }, "username", (err, user) => {
+      // var userId = { id: user.get().id }
+      console.log(userId)
+      console.log("userId passport.deserializeUser")
       done(null, userId);
   });
 });

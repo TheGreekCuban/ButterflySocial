@@ -24,14 +24,18 @@ const userSchema = new Schema({
   date: { 
     type: Date, default: Date.now
    },
-  streams: {
-    type: Schema.Types.ObjectId,
-    ref: "Stream"
-  },
-  messages: {
-    type: Schema.Types.ObjectId,
-    ref: "Message"
-  }
+  // set these foreign keys up as arrays so they can handle multiple objects
+  streams: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Stream"
+    }
+  ],
+  messages: [{
+      type: Schema.Types.ObjectId,
+      ref: "Message"
+    }
+  ]
 });
 userSchema.plugin(findOrCreate);
 const User = mongoose.model("User", userSchema);
