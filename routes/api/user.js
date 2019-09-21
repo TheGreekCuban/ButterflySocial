@@ -31,9 +31,14 @@ router
             function(req, res) {
                 // db.User.update({ status: "active" }, { req.user });
                 console.log("try to redirect");
-                res.redirect("/search");
+                res.json(req.user);
             }
     );
+
+// route for handling logging out
+router
+    .route("/logout")
+    .post(userController.logout);
 
 passport.use(
     "local",
