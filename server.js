@@ -37,9 +37,6 @@ mongoose.connect(
     useNewUrlParser: true 
 });
 
-//Using local connection for now
-// mongoose.connect("mongodb://localhost/example_database");
-
 // Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
