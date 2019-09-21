@@ -33,11 +33,13 @@ class Search extends Component {
  
     render() {
         return (
-        <StreamCard>
-          {this.state.streams.map(element => (
-            <StreamCardItem id={element._id} name={element.streamName} date={element.dateCreated} userID={this.props.userID} saveFunction={this.addUserToStream}/>
-        ))}
-        </StreamCard>
+          <div className="container">
+            <StreamCard>
+              {this.state.streams.map(element => (
+                <StreamCardItem id={element._id} name={element.streamName} date={element.dateCreated} userID={this.props.userID} saveFunction={this.addUserToStream}/>
+            ))}
+            </StreamCard>
+        </div>
         )
     }
 }
