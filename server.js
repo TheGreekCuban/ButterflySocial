@@ -36,7 +36,7 @@ mongoose.connect(
   process.env.REACT_APP_MONGODB_URI || "mongodb://localhost/example_database" , { 
     useNewUrlParser: true 
 });
-
+console.log(process.env.REACT_APP_MONGODB_URI)
 // Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
