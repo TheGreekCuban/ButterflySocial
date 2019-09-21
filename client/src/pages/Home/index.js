@@ -51,8 +51,8 @@ handleFormSubmit = {
         event.preventDefault();
         if (this.state.emailLogin && this.state.passwordLogin){
             API.logUserIn({
-                username: this.state.email,
-                password: this.state.password
+                username: this.state.emailLogin,
+                password: this.state.passwordLogin
             })
             .then( res => {
                 this.setState({

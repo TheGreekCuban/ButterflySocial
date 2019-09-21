@@ -29,9 +29,9 @@ router
     .post(
         passport.authenticate("local", { failureRedirect: "/" }),
             function(req, res) {
-                // db.User.update({ status: "active" }, { where: req.user });
+                // db.User.update({ status: "active" }, { req.user });
                 console.log("try to redirect");
-                res.redirect("/");
+                res.redirect("/search");
             }
     );
 
