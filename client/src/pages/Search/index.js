@@ -12,7 +12,8 @@ class Search extends Component {
         API.searchStreams()
         .then(response => {
             this.setState({streams: response.data})
-            console.log("State: ", this.state.streams[0]._id)
+            console.log("State: ", this.state.streams)
+            console.log("Response: ", response.data)
         })      
         .catch(err => console.log(err));
     }

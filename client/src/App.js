@@ -74,17 +74,7 @@ class App extends Component {
                 <Streams {...props} userID={this.state.userID}/>
               )}
             />
-<<<<<<< HEAD
             <Route exact path="/api/search" render={(props) => <Search {...props} userID={this.state.userID}/>} />
-=======
-            <Route
-              exact
-              path="/search"
-              render={props => (
-                <Search {...props} title={'SEARCH STREAMS BELOW'} userID={this.state.userID}/>
-              )}
-            />
->>>>>>> aefea84120e1a2cfa8548bd372ed1f0054a0753b
           </Switch>
         </Wrapper>
       </Router>
