@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const searchController = require("../../controllers/searchController");
- 
+
 /*
 Create "Stream.js" page in "client/src/pages" with the following functionality:
  
@@ -11,16 +11,14 @@ cards should include a link to save
 Perform a PUT request to "/api/streams" when save link on card is clicked
 PUT request should save user_id to stream document, and stream_id to user document
 */
- 
- 
+
 //Matches with "/api/search"
-router.route("/")
-   .get(searchController.findAll)
- 
+router.route("/").get(searchController.findAll);
+
 //Matches with "/api/search/:id"
 // router.route("/:id")
 //   .get(searchController.findById)
 //   .put(searchController.update)
 //   .delete(searchController.remove);
- 
+
 module.exports = router;

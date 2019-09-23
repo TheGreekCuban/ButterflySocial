@@ -50,6 +50,21 @@ class Streams extends Component {
     this.getUser()
   }
 
+  unsubscribeUser(id) {
+    
+    // axios#put(url[, data[, config]])
+    axios.post("/streams/:id", id)
+    .then(res => {
+      console.log(res)
+      if(res) {
+        const { streams } = this.state;
+
+        const newStreams = streams.filter(item => item !== id);
+        this.setState({ streams: newStreams });
+      }
+    })
+  }
+
 
 
   render() {
@@ -57,7 +72,13 @@ class Streams extends Component {
       <div>
         <ButtonContainer>
           {this.state.streams.map( (stream, index) => (
-            <Button index={index} id={stream._id} name={stream.streamName}/>
+            <Button 
+              onClick={() => this.unsubscribeUser(stream._id)} 
+              index={index} 
+              id={stream._id} 
+              name={stream.streamName}
+              linkName={"Unsubscribe"}
+            />
           ))}
           </ButtonContainer>
       </div>
