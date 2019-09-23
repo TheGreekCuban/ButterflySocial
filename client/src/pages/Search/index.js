@@ -5,7 +5,8 @@ import { StreamCard, StreamCardItem } from "../../components/StreamCard"
  
 class Search extends Component {
     state = {
-        streams: []
+        streams: [],
+        userID: ""
     }
  
     searchStreams() {
@@ -17,9 +18,14 @@ class Search extends Component {
         .catch(err => console.log(err));
     }
  
-    componentDidMount() {
-      this.searchStreams()
-      console.log(this.props.userID);
+    componentDidUpdate() {
+      if ( this.state.userID !== this.props.userID ){
+        this.setState({
+          userID: this.props.userID
+        })
+        this.searchStreams()
+      }
+      console.log(this.props);
     }
  
     addUserToStream = event => {
@@ -32,6 +38,7 @@ class Search extends Component {
     }
  
     render() {
+      console.log(this.props)
         return (
           <div className="container">
             <StreamCard>
