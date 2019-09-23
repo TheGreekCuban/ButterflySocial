@@ -54,7 +54,7 @@ class Streams extends Component {
       this.getStream()
     }
     console.log(this.props);
-  }
+  };
 
 
 
