@@ -21,13 +21,13 @@ class Streams extends Component {
         this.setState({
           streams: response.data.streams
         })
-          // this.state.streams.push(response.data.streams)
-        console.log(this.state.streams);
-      });
-      // this.state.streams.push(response.data.streams)
-      console.log(this.state.streams);
-    });
-  }
+    //       // this.state.streams.push(response.data.streams)
+    //     console.log(this.state.streams);
+    //   });
+    //   // this.state.streams.push(response.data.streams)
+    //   console.log(this.state.streams);
+    // };
+  })
   // getUser() {
   //   axios.get("/user/").then(response => {
   //     console.log("Get user response: ")
@@ -46,7 +46,7 @@ class Streams extends Component {
   //       })
   //     }
   //   });
-  // };
+  };
 
   componentDidUpdate() {
     if ( this.state.userID !== this.props.userID ){
@@ -89,6 +89,7 @@ class Streams extends Component {
       </div>
     );
   };
+}
 
 
 export default Streams;
