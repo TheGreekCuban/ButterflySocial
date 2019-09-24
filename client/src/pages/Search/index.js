@@ -13,11 +13,12 @@ class Search extends Component {
         API.searchStreams()
         .then(response => {
             this.setState({streams: response.data})
-            console.log("State: ", this.state.streams[0]._id)
+            console.log("State: ", this.state.streams)
+            console.log("Response: ", response.data)
         })      
         .catch(err => console.log(err));
     }
- 
+
     componentDidUpdate() {
       if ( this.state.userID !== this.props.userID ){
         this.setState({
@@ -30,9 +31,9 @@ class Search extends Component {
  
     addUserToStream = event => {
       event.preventDefault()
-      const userID = event.target.getAttribute("data-userID")
+      const userID = event.target.getAttribute("data-userid")
       const saveData = {
-        streamID : event.target.getAttribute("data-streamID")
+        streamID : event.target.getAttribute("data-streamid")
       }
       API.addUserToStream(userID, saveData)
     }
