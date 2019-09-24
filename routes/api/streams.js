@@ -12,7 +12,6 @@ Perform a PUT request to "/api/streams" when save link on card is clicked
 PUT request should save user_id to stream document, and stream_id to user document
 */
 
-
 //Matches with "/api/streams"
 // router.route("/:id")
 //     .get(streamsController.findById);
@@ -23,11 +22,12 @@ PUT request should save user_id to stream document, and stream_id to user docume
 //   .get(examplesController.findById)
 //   .put(examplesController.update)
 //   .delete(examplesController.remove);
-router.post("/streams/:id", function(req,res){
-    res.send('poop')
-})
+router.route("/").post((req, res) => res.send("hey"));
+router.post("/:id", function(req, res) {
+  console.log("in hurr");
+  res.send("poop");
+});
 module.exports = router;
 
-// do a post request that takes in the stream ID and remove it from the backend --> so when this finishes you will 
+// do a post request that takes in the stream ID and remove it from the backend --> so when this finishes you will
 // send info back to the front end that  its done
-
