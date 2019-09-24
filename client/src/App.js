@@ -17,10 +17,11 @@ class App extends Component {
   componentDidMount() {
     this.getUser();
   }
-
+  
   // route for checking to see if user in the database
   getUser() {
     Axios.get("/user/").then(response => {
+      let activeUser
       console.log("Get user response: ")
       console.log(response.data)
       if (response.data.user) {
@@ -64,21 +65,21 @@ class App extends Component {
               exact
               path="/"
               render={props => (
-                <Home {...props} title={"WELCOME TO BUTTERFLY"} />
+                <Home {...this.state}  title={"WELCOME TO BUTTERFLY"} />
               )}
             />
             <Route
               exact
               path="/streams"
               render={props => (
-                <Streams {...props} userID={this.state.userID}/>
+                <Streams {...this.state} />
               )}
             />
             <Route
               exact
               path="/search"
               render={props => (
-                <Search {...props} title={'SEARCH STREAMS BELOW'} userID={this.state.userID}/>
+                <Search {...this.state} title={'SEARCH STREAMS BELOW'} />
               )}
             />
           </Switch>

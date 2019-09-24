@@ -13,39 +13,50 @@ class Streams extends Component {
   // collection
   getStream() {
     console.log(this.state.userID);
-    axios.get("/api/user/" + this.state.userID).then(response => {
-      console.log("get stream response: ");
-      console.log(response.data.streams);
-      this.setState({
-        streams: response.data.streams
+    axios
+      .get("/api/user/" + this.props.userID)
+      .then(response => {
+        console.log("get stream response: ");
+        console.log(response.data.streams);
+        this.setState({
+          streams: response.data.streams
+        })
+          // this.state.streams.push(response.data.streams)
+        console.log(this.state.streams);
       });
       // this.state.streams.push(response.data.streams)
       console.log(this.state.streams);
     });
   }
-  getUser() {
-    axios.get("/user/").then(response => {
-      console.log("Get user response: ");
-      console.log(response.data);
-      if (response.data.user) {
-        console.log("Get User: there is a user saved in the server session: ");
-        this.setState({
-          userID: response.data.user.id
-        });
-        console.log(this.state);
-        this.getStream();
-      } else {
-        console.log("Get user: no user");
-        this.setState({
-          userID: null
-        });
-      }
-    });
-  }
+  // getUser() {
+  //   axios.get("/user/").then(response => {
+  //     console.log("Get user response: ")
+  //     console.log(response.data)
+  //     if (response.data.user) {
+  //       console.log("Get User: there is a user saved in the server session: ")
+  //       this.setState({
+  //         userID: response.data.user.id
+  //       })
+  //       console.log(this.state);
+  //       this.getStream();
+  //     } else {
+  //       console.log("Get user: no user");
+  //       this.setState({
+  //         userID: null
+  //       })
+  //     }
+  //   });
+  // };
 
-  componentDidMount() {
-    this.getUser();
-  }
+  componentDidUpdate() {
+    if ( this.state.userID !== this.props.userID ){
+      this.setState({
+        userID: this.props.userID
+      })
+      this.getStream()
+    }
+    console.log(this.props);
+  };
 
   unsubscribeUser(id) {
     // axios#put(url[, data[, config]])
@@ -59,7 +70,7 @@ class Streams extends Component {
         });
       }
     });
-  }
+  };
 
   render() {
     return (
@@ -77,7 +88,7 @@ class Streams extends Component {
         </ButtonContainer>
       </div>
     );
-  }
-}
+  };
+
 
 export default Streams;

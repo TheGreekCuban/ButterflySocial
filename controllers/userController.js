@@ -150,10 +150,12 @@ passport.serializeUser(function (userId, done) {
 passport.deserializeUser(function (userId, done) {
   console.log("i got there")
   console.log(userId);
-  db.User.findOne({ _id: userId }, "username", (err, user) => {
-      // var userId = { id: user.get().id }
+  db.User.findOne({ _id: userId.id }, (err, user) => {
+      console.log(user)
+      // var userId = { id: user.get()._id }
       console.log(userId)
       console.log("userId passport.deserializeUser")
       done(null, userId);
-  });
+  })
+  .catch(err => console.log(err))
 });
