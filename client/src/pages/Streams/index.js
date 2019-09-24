@@ -24,7 +24,9 @@ class Streams extends Component {
           // this.state.streams.push(response.data.streams)
         console.log(this.state.streams);
       });
-
+      // this.state.streams.push(response.data.streams)
+      console.log(this.state.streams);
+    });
   }
   // getUser() {
   //   axios.get("/user/").then(response => {
@@ -56,19 +58,37 @@ class Streams extends Component {
     console.log(this.props);
   };
 
+  unsubscribeUser(id) {
+    // axios#put(url[, data[, config]])
+    axios.post("/api/streams/" + id).then(res => {
+      console.log(res);
+      if (res.data) {
+        const { streams } = this.state;
 
+        this.setState({
+          streams: streams.filter(stream => stream._id !== id)
+        });
+      }
+    });
+  };
 
   render() {
     return (
       <div>
         <ButtonContainer>
-          {this.state.streams.map( (stream, index) => (
-            <Button index={index} id={stream._id} name={stream.streamName} key={index}/>
+          {this.state.streams.map((stream, index) => (
+            <Button
+              onClick={() => this.unsubscribeUser(stream._id)}
+              index={index}
+              id={stream._id}
+              name={stream.streamName}
+              linkName={"Unsubscribe"}
+            />
           ))}
-          </ButtonContainer>
+        </ButtonContainer>
       </div>
     );
-  }
-}
+  };
+
 
 export default Streams;

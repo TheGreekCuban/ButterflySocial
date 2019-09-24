@@ -10,9 +10,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
+console.log(process.env.MONGODB_URI)
 
 const option = {
-  url: process.env.REACT_APP_MONGODB_URI || "mongodb://localhost/example_database",
+  url: process.env.MONGODB_URI || "mongodb://localhost/example_database",
   ttl: 14 * 24 * 60 * 60
 }
 const sessionStore  = new MongoStore(option)
@@ -32,6 +33,7 @@ app.use(passport.session());
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
+  console.log('does this do stuffs')
   app.use(express.static("client/build"));
 }
 // Add routes, both API and view

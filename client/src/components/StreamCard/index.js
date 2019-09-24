@@ -11,7 +11,7 @@ export function StreamCard({children}) {
   </div>
   )
 }
- 
+
 export function StreamCardItem(props) {
   console.log("PROPS: ", props.name)
   console.log("ID: ", props.id)
@@ -24,5 +24,5 @@ export function StreamCardItem(props) {
         <button className="btn btn-primary" data-streamid={props.id} data-userid={props.userID} onClick={props.saveFunction} href='#'>Subscribe</button>
       </div>
     </div>
-  )
+  );
 }

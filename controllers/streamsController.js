@@ -7,7 +7,15 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  findById: function(req, res) {
+  remove: function(req, res) {
+    db.Stream.findById({ _id: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  }
+};
+
+/*  findById: function(req, res) {
     console.log(req.params.id)
     db.Stream
       .findById(req.params.id).populate("streams")
