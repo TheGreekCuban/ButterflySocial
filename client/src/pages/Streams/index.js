@@ -63,7 +63,7 @@ class Streams extends Component {
       <div>
         <ButtonContainer>
           {this.state.streams.map( (stream, index) => (
-            <Button index={index} id={stream._id} name={stream.streamName}/>
+            <Button index={index} id={stream._id} name={stream.streamName} key={index}/>
           ))}
           </ButtonContainer>
       </div>
