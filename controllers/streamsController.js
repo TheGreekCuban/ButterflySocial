@@ -3,19 +3,20 @@ const db = require("../models");
 // Defining methods for the ExamplesController
 module.exports = {
   findAll: function(req, res) {
-    db.Stream.find(req.query)
+    db.Stream.find({})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
-};
-
-/*  findById: function(req, res) {
+  },
+  findById: function(req, res) {
     console.log(req.params.id)
     db.Stream
       .findById(req.params.id).populate("streams")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  },
+  }
+};
+
+/*  ,
   create: function(req, res) {
     db.Example
       .create(req.body)

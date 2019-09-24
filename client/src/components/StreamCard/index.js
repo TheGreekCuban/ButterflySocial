@@ -21,7 +21,7 @@ export function StreamCardItem(props) {
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
         <h6 className="card-subtitle mb-2 text-muted">{props.date}</h6>
-        <button className="btn btn-primary" data-streamID={props.id} data-userID={props.userID} onClick={props.saveFunction} href='#'>Subscribe</button>
+        <button className="btn btn-primary" data-streamid={props.id} data-userid={props.userID} onClick={props.saveFunction} href='#'>Subscribe</button>
       </div>
     </div>
   )
