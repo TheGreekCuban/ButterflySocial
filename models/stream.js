@@ -16,6 +16,10 @@ const streamSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
+  isUnsubscribed: {
+    type: Boolean,
+    default: true
+  },
   messages: {
     type: Schema.Types.ObjectId,
     ref: "Message"
