@@ -23,10 +23,10 @@ PUT request should save user_id to stream document, and stream_id to user docume
 //   .put(examplesController.update)
 //   .delete(examplesController.remove);
 router.route("/").post((req, res) => res.send("hey"));
-router.post("/:id", function(req, res) {
-  console.log("in hurr");
-  res.send("poop");
-});
+router.route("/:id").post(streamsController.remove);
+
+// client sends req -> server via route -> delegates req to controller -> then goes to database, or do something
+
 module.exports = router;
 
 // do a post request that takes in the stream ID and remove it from the backend --> so when this finishes you will

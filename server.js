@@ -10,9 +10,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
+console.log(process.env.MONGODB_URI)
 
 const option = {
-  url: process.env.REACT_APP_MONGODB_URI || "mongodb://localhost/example_database",
+  url: process.env.MONGODB_URI || "mongodb://localhost/example_database",
   ttl: 14 * 24 * 60 * 60
 }
 const sessionStore  = new MongoStore(option)
