@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 //import {Redirect} from "react-router-dom"
-//import SearchBar from '@opuscapita/react-searchbar';
 import API from "../../utils/API";
 import { StreamCard, StreamCardItem } from "../../components/StreamCard"
 import SearchForm from "../../components/SearchForm"
-import addStream from "../../components/addStream"
+import AddStream from "../../components/addStream"
 
 class Search extends Component {
     state = {
         streams: [],
+        displayedStreams: [],
         userID: "",
         search: "",
         error: ""
@@ -17,7 +17,7 @@ class Search extends Component {
     searchStreams() {
         API.searchStreams()
         .then(response => {
-            this.setState({streams: response.data, search: "", error: ""})
+            this.setState({streams: response.data, search: "", error: "", displayedStreams: response.data})
             //console.log("State: ", this.state.streams)
             //console.log("Response: ", response.data)
         })      
@@ -44,48 +44,36 @@ class Search extends Component {
     }
 
     handleInputChange = event => {
-      this.setState({ search: event.target.value });
+      console.log("SEARCH EVENT: ", event.target.value)
+      let filteredStreams = this.state.streams.filter(
+        (element) => {
+          return element.streamName.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1
+        }
+      )
+      console.log("FILTERED STREAMS: ", filteredStreams)
+      this.setState({ displayedStreams: filteredStreams });
     };
-  
-    handleFormSubmit = event => {
-      event.preventDefault();
-      API.filterStreams(this.state.search)
-        .then(res => {
-          console.log(`Response.data: ${res.data}`)
-          if (res.data.status === "error") {
-            throw new Error(res.data.message);
-          }
-          this.setState({ streams: res.data, error: "" });
-        })
-        .catch(err => this.setState({ error: err.message }));
-    };
- 
+
     render() {
       console.log("State From Search Page: ", this.state)
-        let filteredStreams = this.state.streams.filter(
-          (element) => {
-            return element.streamName.toLowerCase().indexOf(this.state.search.toLowerCase() !== -1)
-          }
-        )
-        console.log(`Filtered Streams: ${filteredStreams}`)
         return (
           <div className="container">
             <StreamCard>
-              {filteredStreams.map(element => (
+              {this.state.displayedStreams.map(element => (
                 <StreamCardItem 
                   id={element._id} 
                   name={element.streamName} 
                   date={element.dateCreated} 
                   userID={this.props.userID} 
                   saveFunction={this.addUserToStream}/>
-            ))}
+              ))}
             </StreamCard>
-            <SearchForm>
+            <SearchForm 
               handleFormSubmit={this.handleFormSubmit}
               handleInputChange={this.handleInputChange}
               streams={this.state.streams} 
-            </SearchForm>
-            <addStream/>
+            />
+            <AddStream/>
           </div>
         )
     }

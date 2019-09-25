@@ -16,9 +16,6 @@ function SearchForm(props) {
           placeholder="Type in a stream name!"
           id="streams"
         />
-        <button onClick={props.handleFormSubmit} className="btn btn-success">
-          Search
-        </button>
       </div>
     </form>
   );
