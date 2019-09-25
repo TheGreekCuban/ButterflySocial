@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <Router>
         <Wrapper>
-          <NavigationBar logoutFunction={this.handleLogout} />
+          <NavigationBar {...this.state} logoutFunction={this.handleLogout} />
           <Switch>
             <Route
               exact
@@ -72,7 +72,7 @@ class App extends Component {
               exact
               path="/streams"
               render={props => (
-                <Streams {...this.state} />
+                <Streams {...this.state} unserID={this.state.userID} />
               )}
             />
             <Route
