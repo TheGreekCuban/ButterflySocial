@@ -8,6 +8,9 @@ export default {
   searchStreams: function() {
     return axios.get("/api/search");
   },
+  filterStreams: function(userData) {
+    return axios.get("/api/filter")
+  },
   // Saves users to the database 
   saveUser: function(userData) {
     return axios.post("/api/user/signup", userData);
