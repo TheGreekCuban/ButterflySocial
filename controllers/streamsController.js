@@ -12,16 +12,17 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
-};
-
-/*  findById: function(req, res) {
+  },
+  findById: function(req, res) {
     console.log(req.params.id)
     db.Stream
       .findById(req.params.id).populate("streams")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   }
+};
+
+/*  
 };
 
 /*  ,

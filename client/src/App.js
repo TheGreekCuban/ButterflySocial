@@ -79,7 +79,7 @@ class App extends Component {
               exact
               path="/search"
               render={props => (
-                <Search {...this.state} title={'SEARCH STREAMS BELOW'} />
+                <Search {...this.state}/>
               )}
             />
           </Switch>
