@@ -42,7 +42,8 @@ router
 
 router
     .route("/:id")
-    .put(userController.update)
+    .put(userController.subscribe)
+    .post(userController.unsubscribe)
 
 router.route("/:id")
     .get(userController.findById);

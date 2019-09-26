@@ -26,9 +26,9 @@ module.exports = {
       body: req.body.messageText,
       user: req.body.id
     })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  }
+    .then(message => res.json(message))
+    .catch(err => res.status(422).json(err));
+    }
 };
 
 //   create: function(req, res) {
