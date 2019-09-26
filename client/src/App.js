@@ -11,7 +11,8 @@ import Axios from "axios";
 class App extends Component {
   state = {
     userID: null,
-    loggedIn: false
+    loggedIn: false,
+    whocalled: ""
   };
 
   componentDidMount() {
@@ -55,24 +56,28 @@ class App extends Component {
       })
   }
 
+  fromHome = ()=> {
+    this.setState({loggedIn: true})
+  }
+
   render() {
     return (
       <Router>
         <Wrapper>
-          <NavigationBar logoutFunction={this.handleLogout} />
+          <NavigationBar {...this.state} logoutFunction={this.handleLogout} />
           <Switch>
             <Route
               exact
               path="/"
               render={props => (
-                <Home {...this.state}  title={"WELCOME TO BUTTERFLY"} />
+                <Home {...this.state} fromHome={this.fromHome} title={"WELCOME TO BUTTERFLY"} />
               )}
             />
             <Route
               exact
               path="/streams"
               render={props => (
-                <Streams {...this.state} />
+                <Streams {...this.state} unserID={this.state.userID} />
               )}
             />
             <Route
