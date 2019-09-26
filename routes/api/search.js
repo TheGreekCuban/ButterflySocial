@@ -14,6 +14,9 @@ PUT request should save user_id to stream document, and stream_id to user docume
 
 //Matches with "/api/search"
 router.route("/").get(searchController.findAll);
+    
+router.route("/save").post(searchController.addStream);
+
 
 //Matches with "/api/search/:id"
 // router.route("/:id")
