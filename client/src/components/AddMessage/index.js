@@ -44,10 +44,14 @@ class AddMessage extends Component {
   render() {
     // const [show, setShow] = React.useState(false);
     return (
-      <div>
-        <Button variant="primary" onClick={this.handleShow}>
-          Let's Talk About It
+      <React.Fragment>
+        <Button variant="link" style={{display: "inline-block"}} onClick={this.handleShow}>
+        <img style={{maxHeight: "19px", display: "inline-block", marginRight: "10px"}}
+          src="/images/add_icon.png"
+          />
+          <h5 style={{display: "inline-block", verticalAlign: "bottom", lineHeight: "1.5em"}}>Let's Talk About It</h5>
         </Button>
+
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
@@ -79,7 +83,7 @@ class AddMessage extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-      </div>
+      </React.Fragment>
     );
   }
 }

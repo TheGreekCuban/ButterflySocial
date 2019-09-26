@@ -19,7 +19,13 @@ module.exports = {
       .findById(req.params.id).populate("streams")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
+  },
+  addMessage: function(req, res) {
+    db.Stream
+      .findOneAndUpdate({ _id: req.body.streamID }, {$push: { messages: req.body.messageID}})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 };
 
 /*  

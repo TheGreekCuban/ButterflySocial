@@ -61,9 +61,16 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  update: function(req, res) {
+  subscribe: function(req, res) {
     db.User
       .findOneAndUpdate({ _id: req.params.id }, {$push: { streams: req.body.streamID}})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  unsubscribe: function(req, res) {
+    db.User
+      .findOneAndUpdate({ _id: req.params.id }, {$pull: { streams: req.body.streamID}}, {new: true})
+      .populate("streams")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
