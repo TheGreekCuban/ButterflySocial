@@ -18,6 +18,8 @@ class Search extends Component {
         API.searchStreams()
         .then(response => {
             this.setState({streams: response.data, search: "", error: "", displayedStreams: response.data})
+            //console.log("State: ", this.state.streams)
+            //console.log("Response: ", response.data)
         })      
         .catch(err => console.log(err));
     }
@@ -29,6 +31,7 @@ class Search extends Component {
         })
         this.searchStreams()
       }
+      //console.log(this.props);
     }
  
     addUserToStream = event => {
@@ -38,20 +41,6 @@ class Search extends Component {
         streamID : event.target.getAttribute("data-streamid")
       }
       API.addUserToStream(userID, saveData)
-    }
-
-    //check what a post route returns, might just need to do catch.
-    saveStream = event => {
-      event.preventDefault()
-      const streamName = event.target.value("streamTitle")
-      const streamDescription = event.target.value("streamDescription")
-      const streamData = {
-        streamName: streamName,
-        streamDescription: streamDescription
-      }
-      
-      API.saveStream(streamData)
-      .catch(err => console.log(err))
     }
 
     handleInputChange = event => {
@@ -66,31 +55,30 @@ class Search extends Component {
     };
 
     render() {
+      console.log("State From Search Page: ", this.state)
         return (
           <div className="container">
             <StreamCard>
               {this.state.displayedStreams.map((element, index) => (
-                <StreamCardItem 
-                  key={index} 
-                  id={element._id} 
-                  name={element.streamName} 
-                  date={element.dateCreated} 
-                  userID={this.props.userID} 
-                  saveFunction={this.addUserToStream}
-                />
+                <StreamCardItem key={index} 
+                id={element._id} 
+                name={element.streamName} 
+                date={element.dateCreated} 
+                userID={this.props.userID} 
+                saveFunction={this.addUserToStream}/>
             ))}
+
             </StreamCard>
             <SearchForm 
               handleFormSubmit={this.handleFormSubmit}
               handleInputChange={this.handleInputChange}
               streams={this.state.streams} 
             />
-            <AddStream
-              saveStream={this.saveStream}
-            />
+            <AddStream/>
           </div>
         )
     }
 }
+ 
  
 export default Search;
