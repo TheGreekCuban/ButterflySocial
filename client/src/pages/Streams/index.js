@@ -11,24 +11,11 @@ class Streams extends Component {
 
   // the getStream function is making a request to the server and grabbing the User document (object) within the User
   // collection
-  idOnParam = ()=> {
-    if (this.props.loggedIn) {
-      return this.props.userID
-    }else{
-      return this.state.userID
-    }
-    
-  }
+  
   getStream() {
-    if (this.props.loggedIn) {
-      console.log("PROPS")
-      console.log(this.idOnParam());
-    }else{
-      console.log(this.idOnParam());
-    }
-    
+
     axios
-      .get("/api/user/" + this.idOnParam())
+      .get("/api/user/" + this.state.userID)
       .then(response => {
         console.log("get stream response: ");
         console.log(response.data.streams);

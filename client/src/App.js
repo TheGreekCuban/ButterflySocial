@@ -11,7 +11,8 @@ import Axios from "axios";
 class App extends Component {
   state = {
     userID: null,
-    loggedIn: false
+    loggedIn: false,
+    whocalled: ""
   };
 
   componentDidMount() {
@@ -55,6 +56,10 @@ class App extends Component {
       })
   }
 
+  fromHome = ()=> {
+    this.setState({loggedIn: true})
+  }
+
   render() {
     return (
       <Router>
@@ -65,7 +70,7 @@ class App extends Component {
               exact
               path="/"
               render={props => (
-                <Home {...this.state}  title={"WELCOME TO BUTTERFLY"} />
+                <Home {...this.state} fromHome={this.fromHome} title={"WELCOME TO BUTTERFLY"} />
               )}
             />
             <Route
