@@ -28,7 +28,7 @@ module.exports = {
     })
     .then(message => res.json(message))
     .catch(err => res.status(422).json(err));
-    }
+  }
 };
 
 //   create: function(req, res) {

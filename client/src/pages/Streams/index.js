@@ -75,6 +75,7 @@ class Streams extends Component {
   sendMessage = messageText => {
     console.log(messageText);
     console.log(this.state.userID);
+    console.log(this.state.curStreamID);
     // let newMessageID;
     axios
       .post("/api/messages/", {
@@ -85,8 +86,19 @@ class Streams extends Component {
         console.log("message sent!")
         console.log(res.data);
         // then make PUT request to add this message to stream document
-        // newMessageID = res.data._id;
-        // axios.put("/api/streams/")
+        let newMessageID = res.data._id;
+        console.log(newMessageID)
+        // after getting response that message has been successfully created, put it into the selected streams document
+        axios.put("/api/streams/" + this.state.curStreamID, {
+          messageID: newMessageID
+        })
+        .then(response => {
+          console.log("message saved on stream")
+        })
+        .catch(error => {
+          console.log("error saving message to stream")
+          console.log(error)
+        })
       })
       .catch(err => {
         console.log(err);
@@ -94,10 +106,12 @@ class Streams extends Component {
   };
 
   handleStreamToggle = (event) => {
+    event.preventDefault();
     console.log(event.target.getAttribute("datavalue"));
     this.setState({
       curStreamID: event.target.getAttribute("datavalue")
     })
+    console.log(this.state.curStreamID);
   }
 
   getMessages = () => {

@@ -25,10 +25,10 @@ const streamSchema = new Schema({
     type: Boolean,
     default: false
   },
-  messages: {
+  messages: [{
     type: Schema.Types.ObjectId,
     ref: "Message"
-  }
+  }]
 });
 
 const Stream = mongoose.model("Stream", streamSchema);

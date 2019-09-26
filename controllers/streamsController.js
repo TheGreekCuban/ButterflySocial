@@ -22,7 +22,7 @@ module.exports = {
   },
   addMessage: function(req, res) {
     db.Stream
-      .findOneAndUpdate({ _id: req.body.streamID }, {$push: { messages: req.body.messageID}})
+      .findOneAndUpdate({ _id: req.params.id }, {$push: { messages: req.body.messageID}})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
