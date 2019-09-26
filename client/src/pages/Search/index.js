@@ -59,7 +59,7 @@ class Search extends Component {
         return (
           <div className="container">
             <StreamCard>
-              {this.state.streams.map((element, index) => (
+              {this.state.displayedStreams.map((element, index) => (
                 <StreamCardItem key={index} 
                 id={element._id} 
                 name={element.streamName} 
