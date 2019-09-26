@@ -4,8 +4,13 @@ import API from "../../utils/API";
 import { Container, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Axios from 'axios';
+import Video from "../../components/Video"
 
 class SignupPage extends Component {
+
+  constructor(props){
+    super(props)
+  }
   state = {
     email: "",
     emailLogin: "",
@@ -62,6 +67,7 @@ class SignupPage extends Component {
         })
           .then(res => {
             console.log(res)
+            this.props.fromHome()
             this.setState({
               id: res.data.id,
               redirectTo: "/streams"
@@ -81,7 +87,8 @@ class SignupPage extends Component {
       } else {
         return (
 
-          <div id="page" class="page">
+          <div id="page" className="page">
+            {/* <Video /> */}
           <div className="back-image header11" style={{cursor: "pointer", outlineOffset: "-2px"}}>
         <div className="mid-className">
           <div className="art-right">
@@ -105,7 +112,7 @@ class SignupPage extends Component {
               </div>
               <div className="clear"></div>
               <div className="btnn">
-              <button onClick={this.handleFormSubmit.login} disabled={!(this.state.emailLogin && this.state.passwordLogin)} type="submit" className="btn btn-primary">Sign In</button>
+              <button onClick={this.handleFormSubmit.login}  disabled={!(this.state.emailLogin && this.state.passwordLogin)} type="submit" className="btn btn-primary">Sign In</button>
               </div>
             </form>
             <div className="w3layouts_more-buttn">
