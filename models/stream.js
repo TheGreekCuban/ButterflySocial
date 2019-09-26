@@ -8,6 +8,11 @@ const streamSchema = new Schema({
     minlength: 4,
     unique: true
   },
+  streamDescription: {
+    type: String,
+    required: true,
+    minlength: 4,
+  },
   dateCreated: {
     type: Date,
     default: Date.now
