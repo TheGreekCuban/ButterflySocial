@@ -20,6 +20,9 @@ export default {
   },
   addUserToStream: function(userID, streamID) {
     return axios.put("/api/user/" + userID, streamID)
+  },
+  saveStream: function(userData) {
+    return axios.post("/api/search/save", userData);
   } 
 };
 
@@ -33,10 +36,6 @@ export default {
   // Deletes the book with the given id
   deleteExample: function(id) {
     return axios.delete("/api/examples/" + id);
-  },
-  // Saves a book to the database
-  saveExample: function(exampleData) {
-    return axios.post("/api/examples", exampleData);
   },
   // Saves users to the database 
   saveUser: function(userData) {

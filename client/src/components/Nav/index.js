@@ -23,11 +23,18 @@ class NavigationBar extends Component {
           }
         });
       };
-      componentDidMount() {
-        this.getUser()
-      }
-      componentDidUpdate() {
-          this.getUser()
+      // componentDidMount() {
+      //   this.getUser()
+      // }
+      componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(this.state.loggedIn)
+        console.log(prevState.loggedIn)
+        console.log(prevProps.loggedIn)
+          console.log(this.props.loggedIn)
+          console.log(this.props.whocalled)
+          if (this.props.loggedIn !== prevProps.loggedIn){
+            this.getUser()
+          }
       }
 
     options = ()=> {
