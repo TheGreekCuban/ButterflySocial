@@ -13,6 +13,13 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findMessages: function(req, res) {
+    console.log(req.params.id)
+    db.Stream
+      .findById(req.params.id).populate("messages")
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   findById: function(req, res) {
     console.log(req.params.id)
     db.Stream

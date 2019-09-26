@@ -27,6 +27,7 @@ router.route("/")
 router.route("/:id")
   .post(streamsController.remove)
   .put(streamsController.addMessage)
+  .get(streamsController.findMessages)
 
 
 // client sends req -> server via route -> delegates req to controller -> then goes to database, or do something

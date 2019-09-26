@@ -110,17 +110,20 @@ class Streams extends Component {
     console.log(event.target.getAttribute("datavalue"));
     this.setState({
       curStreamID: event.target.getAttribute("datavalue")
-    })
+    }, () => {
+      this.getMessages(this.state.curStreamID)
+     })
     console.log(this.state.curStreamID);
   }
 
-  getMessages = () => {
-    axios.get("/api/messages/" + this.state.curStreamID)
+  getMessages = (streamID) => {
+    console.log(streamID)
+    axios.get("/api/streams/" + streamID)
     .then(response => {
       console.log(response)
       this.setState({
         messages: response
-      })
+      });
     })
     .catch(error => console.log(error))
   }
