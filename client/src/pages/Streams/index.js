@@ -71,7 +71,7 @@ class Streams extends Component {
     }).then(res => {
       console.log(res);
       if (res.data) {
-        const { streams } = this.state;
+        // const { streams } = this.state;
         this.setState({
           streams: res.data.streams
         });
@@ -85,14 +85,18 @@ class Streams extends Component {
   sendMessage = messageText => {
     console.log(messageText);
     console.log(this.state.userID);
+    // let newMessageID;
     axios
       .post("/api/messages/", {
         messageText: messageText,
         id: this.state.userID,
-        streamID: this.state.curStreamID
       })
       .then(res => {
-        console.log("Message Sent!");
+        console.log("message sent!")
+        console.log(res.data);
+        // then make PUT request to add this message to stream document
+        // newMessageID = res.data._id;
+        // axios.put("/api/streams/")
       })
       .catch(err => {
         console.log(err);

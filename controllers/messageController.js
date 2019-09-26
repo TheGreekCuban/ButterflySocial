@@ -1,6 +1,5 @@
 // Defining methods for the MessageController
 const db = require("../models");
-const streamsController = require("../controllers/streamsController");
 
 module.exports = {
   findAll: function(req, res) {
@@ -27,15 +26,9 @@ module.exports = {
       body: req.body.messageText,
       user: req.body.id
     })
-      .then(message => {
-        console.log("addMessage controller:")
-        console.log(req.body.streamID);
-        console.log(message._id);
-        db.streamsController.addMessage(req.body.streamID, message._id);
-        res.json(message);
-      })
-      .catch(err => res.status(422).json(err));
-  }
+    .then(message => res.json(message))
+    .catch(err => res.status(422).json(err));
+    }
 };
 
 //   create: function(req, res) {
