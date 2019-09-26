@@ -35,6 +35,12 @@ class AddMessage extends Component {
     });
   };
 
+  handleSendMessage = (event) => {
+    event.preventDefault();
+    this.props.sendMessageFunction(this.state.message);
+    this.handleClose();
+  }
+
   render() {
     // const [show, setShow] = React.useState(false);
     return (
@@ -67,7 +73,7 @@ class AddMessage extends Component {
             </Button>
             <Button
               variant="primary"
-              onClick={() => this.props.sendMessageFunction(this.state.message)}
+              onClick={this.handleSendMessage}
             >
               Send
             </Button>
