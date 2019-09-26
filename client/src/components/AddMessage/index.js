@@ -67,7 +67,7 @@ class AddMessage extends Component {
             </Button>
             <Button
               variant="primary"
-              onClick={this.props.sendMessageFunction(this.state.message)}
+              onClick={() => this.props.sendMessageFunction(this.state.message)}
             >
               Send
             </Button>
