@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { ButtonContainer, Button } from "../../components/Button";
 import Navigation from "../../components/Nav";
+import AddMessage from "../../components/AddMessage";
+
 class Streams extends Component {
   state = {
     streams: [],
@@ -11,55 +13,52 @@ class Streams extends Component {
 
   // the getStream function is making a request to the server and grabbing the User document (object) within the User
   // collection
-  idOnParam = ()=> {
+  idOnParam = () => {
     if (this.props.loggedIn) {
-      return this.props.userID
-    }else{
-      return this.state.userID
+      return this.props.userID;
+    } else {
+      return this.state.userID;
     }
-    
-  }
+  };
   getStream() {
     if (this.props.loggedIn) {
-      console.log("PROPS")
+      console.log("PROPS");
       console.log(this.idOnParam());
-    }else{
+    } else {
       console.log(this.idOnParam());
     }
-    
-    axios
-      .get("/api/user/" + this.idOnParam())
-      .then(response => {
-        console.log("get stream response: ");
-        console.log(response.data.streams);
-        this.setState({
-          streams: response.data.streams
-        })
+
+    axios.get("/api/user/" + this.idOnParam()).then(response => {
+      console.log("get stream response: ");
+      console.log(response.data.streams);
+      this.setState({
+        streams: response.data.streams
+      });
       // this.state.streams.push(response.data.streams)
       console.log(this.state.streams);
     });
   }
   getUser() {
     axios.get("/user/").then(response => {
-      console.log("Get user response: ")
-      console.log(response.data)
+      console.log("Get user response: ");
+      console.log(response.data);
       if (response.data.user) {
-        console.log("Get User: there is a user saved in the server session: ")
+        console.log("Get User: there is a user saved in the server session: ");
         this.setState({
           userID: response.data.user.id
-        })
+        });
         console.log(this.state);
         this.getStream();
       } else {
         console.log("Get user: no user");
         this.setState({
           userID: null
-        })
+        });
       }
     });
-  };
+  }
   componentDidMount() {
-    this.getUser()
+    this.getUser();
   }
 
   // componentDidUpdate() {
@@ -84,7 +83,7 @@ class Streams extends Component {
         });
       }
     });
-  };
+  }
 
   render() {
     return (
@@ -101,10 +100,10 @@ class Streams extends Component {
             />
           ))}
         </ButtonContainer>
+        <AddMessage />
       </div>
     );
-  };
+  }
 }
-
 
 export default Streams;
