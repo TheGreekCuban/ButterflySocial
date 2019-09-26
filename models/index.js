@@ -1,6 +1,6 @@
 module.exports = {
   User: require("./user"),
   Stream: require("./stream"),
-  Messages: require("./messages"),
+  Message: require("./messages"),
   Search: require("./stream")
 };

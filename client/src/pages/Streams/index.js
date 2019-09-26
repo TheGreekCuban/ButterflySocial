@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import { ButtonContainer, Button } from "../../components/Button";
 import Navigation from "../../components/Nav";
+import AddMessage from "../../components/AddMessage";
+
 class Streams extends Component {
   state = {
     streams: [],
     messages: [],
+    // messageText: "",
     userID: null
   };
 
@@ -28,25 +31,26 @@ class Streams extends Component {
   }
   getUser() {
     axios.get("/user/").then(response => {
-      console.log("Get user response: ")
-      console.log(response.data)
+      console.log("Get user response: ");
+      console.log(response.data);
       if (response.data.user) {
-        console.log("Get User: there is a user saved in the server session: ")
+        console.log("Get User: there is a user saved in the server session: ");
         this.setState({
           userID: response.data.user.id
-        })
+        });
         console.log(this.state);
         this.getStream();
       } else {
         console.log("Get user: no user");
         this.setState({
           userID: null
-        })
+        });
       }
     });
-  };
+  }
   componentDidMount() {
-    this.getUser()
+    this.getUser();
+    console.log(this.state.userID);
   }
 
   // componentDidUpdate() {
@@ -71,6 +75,22 @@ class Streams extends Component {
         });
       }
     });
+  }
+
+  sendMessage = messageText => {
+    console.log(messageText);
+    console.log(this.state.userID);
+    axios
+      .post("/api/messages/", {
+        messageText: messageText,
+        id: this.state.userID
+      })
+      .then(res => {
+        console.log("Message Sent!");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -88,10 +108,10 @@ class Streams extends Component {
             />
           ))}
         </ButtonContainer>
+        <AddMessage sendMessageFunction={this.sendMessage} />
       </div>
     );
-  };
+  }
 }
-
 
 export default Streams;
