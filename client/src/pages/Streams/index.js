@@ -8,6 +8,7 @@ class Streams extends Component {
   state = {
     streams: [],
     messages: [],
+    // messageText: "",
     userID: null
   };
 
@@ -59,6 +60,7 @@ class Streams extends Component {
   }
   componentDidMount() {
     this.getUser();
+    console.log(this.state.userID);
   }
 
   // componentDidUpdate() {
@@ -85,6 +87,22 @@ class Streams extends Component {
     });
   }
 
+  sendMessage = messageText => {
+    console.log(messageText);
+    console.log(this.state.userID);
+    axios
+      .post("/api/messages/", {
+        messageText: messageText,
+        id: this.state.userID
+      })
+      .then(res => {
+        console.log("Message Sent!");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div>
@@ -100,7 +118,7 @@ class Streams extends Component {
             />
           ))}
         </ButtonContainer>
-        <AddMessage />
+        <AddMessage sendMessageFunction={this.sendMessage} />
       </div>
     );
   }
