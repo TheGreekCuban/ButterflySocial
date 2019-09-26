@@ -70,14 +70,12 @@ class Search extends Component {
           <div className="container">
             <StreamCard>
               {this.state.displayedStreams.map((element, index) => (
-                <StreamCardItem 
-                  key={index} 
-                  id={element._id} 
-                  name={element.streamName} 
-                  date={element.dateCreated} 
-                  userID={this.props.userID} 
-                  saveFunction={this.addUserToStream}
-                />
+                <StreamCardItem key={index} 
+                id={element._id} 
+                name={element.streamName} 
+                date={element.dateCreated} 
+                userID={this.props.userID} 
+                saveFunction={this.addUserToStream}/>
             ))}
             </StreamCard>
             <SearchForm 
