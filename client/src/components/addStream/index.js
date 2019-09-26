@@ -1,6 +1,7 @@
 import React from "react";
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form'
 //import "./style.css";
 
 function addStream(props) {
@@ -11,19 +12,30 @@ function addStream(props) {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+        Create A New Stream!
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Please Enter The Required Information Below!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Please Enter The Information Below To Add A Stream</Modal.Body>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="streamTitle">
+              <Form.Label>Stream Name</Form.Label>
+              <Form.Control type="text" placeholder="What Do You Want To Name Your Stream?" />
+            </Form.Group>
+            <Form.Group controlId="streamDescription">
+              <Form.Label>What Is The Purpose Of This Stream?</Form.Label>
+              <Form.Control as="textarea" rows="2" />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={props.saveStream}>
             Save Changes
           </Button>
         </Modal.Footer>

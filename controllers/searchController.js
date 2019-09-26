@@ -16,12 +16,11 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  findFiltered: function(req, res) {
+  addStream: function (req, res) {
     console.log("Find Filtered Param: ", req.body)
     db.Search  
-      .find({streamName: req.params.streamName})
-      .then(dbModel => { console.log("DB Model: ", dbModel)
-        return res.json(dbModel)})
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 };
