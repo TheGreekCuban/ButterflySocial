@@ -81,7 +81,6 @@ class App extends Component {
               )}
             />
             <Route
-              exact
               path="/search"
               render={props => (
                 <Search {...this.state}/>
