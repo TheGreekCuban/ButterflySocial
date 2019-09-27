@@ -11,9 +11,10 @@ class Search extends Component {
         displayedStreams: [],
         userID: "",
         search: "",
-        error: ""
+        error: "",
+
     }
- 
+
     searchStreams() {
         API.searchStreams()
         .then(response => {
@@ -39,32 +40,16 @@ class Search extends Component {
       }
       API.addUserToStream(userID, saveData)
     }
-
-    //check what a post route returns, might just need to do catch.
-    saveStream = event => {
-      event.preventDefault()
-      const streamName = event.target.value("streamTitle")
-      const streamDescription = event.target.value("streamDescription")
-      const streamData = {
-        streamName: streamName,
-        streamDescription: streamDescription
-      }
-      
-      API.saveStream(streamData)
-      .catch(err => console.log(err))
-    }
-
-    handleInputChange = event => {
-      console.log("SEARCH EVENT: ", event.target.value)
+    
+    handleInputChangeFilter = event => {
       let filteredStreams = this.state.streams.filter(
         (element) => {
           return element.streamName.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1
         }
       )
-      console.log("FILTERED STREAMS: ", filteredStreams)
       this.setState({ displayedStreams: filteredStreams });
     };
-
+  
     render() {
         return (
           <div className="container">
@@ -79,13 +64,10 @@ class Search extends Component {
             ))}
             </StreamCard>
             <SearchForm 
-              handleFormSubmit={this.handleFormSubmit}
-              handleInputChange={this.handleInputChange}
+              handleInputChangeFilter={this.handleInputChangeFilter}
               streams={this.state.streams} 
             />
-            <AddStream
-              saveStream={this.saveStream}
-            />
+            <AddStream/>
           </div>
         )
     }

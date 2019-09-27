@@ -9,7 +9,7 @@ function SearchForm(props) {
         <label htmlFor="streams">Stream Name:</label>
         <input
           value={props.search}
-          onChange={props.handleInputChange}
+          onChange={props.handleInputChangeFilter}
           name="streams"
           type="text"
           className="form-control"
