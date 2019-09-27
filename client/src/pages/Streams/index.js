@@ -54,16 +54,6 @@ class Streams extends Component {
     console.log(this.state.userID);
   }
 
-  // componentDidUpdate() {
-  //   if ( this.state.userID !== this.props.userID ){
-  //     this.setState({
-  //       userID: this.props.userID
-  //     })
-  //     this.getStream()
-  //   }
-  //   console.log(this.props);
-  // };
-
   unsubscribeUser(streamID) {
     // axios#put(url[, data[, config]])
     axios.post("/api/user/" + this.state.userID, {
@@ -85,6 +75,7 @@ class Streams extends Component {
   sendMessage = messageText => {
     console.log(messageText);
     console.log(this.state.userID);
+    console.log(this.state.curStreamID);
     // let newMessageID;
     axios
       .post("/api/messages/", {
@@ -95,13 +86,55 @@ class Streams extends Component {
         console.log("message sent!")
         console.log(res.data);
         // then make PUT request to add this message to stream document
-        // newMessageID = res.data._id;
-        // axios.put("/api/streams/")
+        let newMessageID = res.data._id;
+        console.log(newMessageID)
+        // after getting response that message has been successfully created, put it into the selected streams document
+        axios.put("/api/streams/" + this.state.curStreamID, {
+          messageID: newMessageID
+        })
+        .then(response => {
+          console.log("message saved on stream")
+          console.log(response);
+          this.setState({
+            messages: response.data.messages.reverse()
+          }, () => {
+            console.log(this.state.messages);
+          });
+        })
+        .catch(error => {
+          console.log("error saving message to stream")
+          console.log(error)
+        })
       })
       .catch(err => {
         console.log(err);
       });
   };
+
+  handleStreamToggle = (event) => {
+    event.preventDefault();
+    console.log(event.target.getAttribute("datavalue"));
+    this.setState({
+      curStreamID: event.target.getAttribute("datavalue")
+    }, () => {
+      this.getMessages(this.state.curStreamID)
+     })
+    console.log(this.state.curStreamID);
+  }
+
+  getMessages = (streamID) => {
+    console.log(streamID)
+    axios.get("/api/streams/" + streamID)
+    .then(response => {
+      console.log(response)
+      this.setState({
+        messages: response.data.messages.reverse()
+      }, () => {
+        console.log(this.state.messages);
+      });
+    })
+    .catch(error => console.log(error))
+  }
 
   render() {
     if(!this.state.streams || !this.state.streams.length) {
@@ -134,39 +167,56 @@ class Streams extends Component {
         <div style={{marginTop: "10px"}}>
           <Tab.Container id="left-tabs-example" defaultActiveKey="first">
             <Row>
+              {/* Render the stream buttons in a left-hand side column */}
               <Col sm={3}>
                 <Nav variant="pills" className="flex-column">
-                  <div style={{textAlign: "center", margin: "10px 0px"}}>
-                    <span style={{marginLeft:"10px", display: "inline-block", padding: "8px 0px", verticalAlign: "bottom", lineHeight: "1.5em"}} >Select Stream</span><span style={{margin: "0px 10px"}}>  |  </span>
+                  <div style={{ margin: "10px 0px"}}>
+                    {/* <span style={{marginLeft:"10px", display: "inline-block", padding: "8px 0px", verticalAlign: "bottom", lineHeight: "1.5em"}} >Select Stream</span><span style={{margin: "0px 10px"}}>  |  </span> */}
                     <AddMessage sendMessageFunction={this.sendMessage} />
                   </div>
+                  {/* Loop through streams that user has subscribed to and render them on the page */}
                   {this.state.streams.map((stream, index) => (
-                    <ToggleButtonGroup type="checkbox">
-                        <ToggleButton style={{width: "100%"}}variant="outline-primary" dataValue={stream._id}>{stream.streamName}
-                        </ToggleButton>
-                        <a></a>
-                        <Button variant="link"
+                    <Nav.Item>
+                      {/* Streams button */}
+                      <Nav.Link eventKey={index}
+                        style={{width: "100%"}}
+                        datavalue={stream._id}
+                        onClick={this.handleStreamToggle}>
+                        {stream.streamName}
+                      {/* unsubscribe button */}
+                      <Button variant="link"
                         onClick={() => this.unsubscribeUser(stream._id)}
                         index={index}
                         key={index}
                         id={stream._id}
                         name={stream.streamName}
                         linkName={"Unsubscribe"}
-                        style={{color: "black"}}
+                        style={{color: "red"}}
                         >✗
-                        </Button>
-                      </ToggleButtonGroup>
+                      </Button>
+                      </Nav.Link>
+                    </Nav.Item>
                   ))}
-                <div>
-                 
-                  </div>
                 </Nav>
               </Col>
-              <Col sm={9}>
+              {/* Content area rendering in right-hand large column */}
+              <Col sm={7}>
                 <Tab.Content>
-                  <Tab.Pane>
+                  <br></br>
+                  <br></br>
+                  {/* <Tab.Pane eventKey="first">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                  </Tab.Pane>
+                  </Tab.Pane> */}
+                  {this.state.messages.map((messageObject, index) => (
+                    <Toast>
+                      <Toast.Header>
+                      <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+                      <strong className="mr-auto">{messageObject.user.username}</strong>
+                      <small>{messageObject.date}</small>
+                      </Toast.Header>
+                      <Toast.Body>{messageObject.body}</Toast.Body>
+                    </Toast>
+                  ))}
                 </Tab.Content>
               </Col>
             </Row>
