@@ -16,7 +16,13 @@ module.exports = {
   findMessages: function(req, res) {
     console.log(req.params.id)
     db.Stream
-      .findById(req.params.id).populate("messages")
+      .findById(req.params.id)
+      .populate({
+        path: "messages user",
+        populate: {
+          path: "user"
+        }
+      })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -29,7 +35,13 @@ module.exports = {
   },
   addMessage: function(req, res) {
     db.Stream
-      .findOneAndUpdate({ _id: req.params.id }, {$push: { messages: req.body.messageID}})
+      .findOneAndUpdate({ _id: req.params.id }, {$push: { messages: req.body.messageID}}, {new: true})
+      .populate({
+        path: "messages user",
+        populate: {
+          path: "user"
+        }
+      })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

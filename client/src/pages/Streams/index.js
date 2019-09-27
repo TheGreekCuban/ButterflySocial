@@ -94,6 +94,12 @@ class Streams extends Component {
         })
         .then(response => {
           console.log("message saved on stream")
+          console.log(response);
+          this.setState({
+            messages: response.data.messages.reverse()
+          }, () => {
+            console.log(this.state.messages);
+          });
         })
         .catch(error => {
           console.log("error saving message to stream")
@@ -122,7 +128,9 @@ class Streams extends Component {
     .then(response => {
       console.log(response)
       this.setState({
-        messages: response
+        messages: response.data.messages.reverse()
+      }, () => {
+        console.log(this.state.messages);
       });
     })
     .catch(error => console.log(error))
@@ -168,15 +176,13 @@ class Streams extends Component {
                   </div>
                   {/* Loop through streams that user has subscribed to and render them on the page */}
                   {this.state.streams.map((stream, index) => (
-                    <ToggleButtonGroup type="checkbox">
+                    <Nav.Item>
                       {/* Streams button */}
-                      <ToggleButton eventKey={index}
+                      <Nav.Link eventKey={index}
                         style={{width: "100%"}}
-                        variant="outline-primary"
                         datavalue={stream._id}
                         onClick={this.handleStreamToggle}>
                         {stream.streamName}
-                      </ToggleButton>
                       {/* unsubscribe button */}
                       <Button variant="link"
                         onClick={() => this.unsubscribeUser(stream._id)}
@@ -185,10 +191,11 @@ class Streams extends Component {
                         id={stream._id}
                         name={stream.streamName}
                         linkName={"Unsubscribe"}
-                        style={{color: "black"}}
+                        style={{color: "red"}}
                         >✗
                       </Button>
-                    </ToggleButtonGroup>
+                      </Nav.Link>
+                    </Nav.Item>
                   ))}
                 </Nav>
               </Col>
@@ -197,9 +204,19 @@ class Streams extends Component {
                 <Tab.Content>
                   <br></br>
                   <br></br>
-                  <Tab.Pane eventKey="first">
+                  {/* <Tab.Pane eventKey="first">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                  </Tab.Pane>
+                  </Tab.Pane> */}
+                  {this.state.messages.map((messageObject, index) => (
+                    <Toast>
+                      <Toast.Header>
+                      <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+                      <strong className="mr-auto">{messageObject.user.username}</strong>
+                      <small>{messageObject.date}</small>
+                      </Toast.Header>
+                      <Toast.Body>{messageObject.body}</Toast.Body>
+                    </Toast>
+                  ))}
                 </Tab.Content>
               </Col>
             </Row>
