@@ -12,24 +12,8 @@ class AddStream extends Component {
     streamDescription: "",
     show: false,
     setShow: false
-  }
-
-  handleInputChange = event => {
-    const { name, value }  = event.target
-    
-    this.setState({[name]: value}) 
-  }
-
-  saveStream = event => {
-    console.log("STREAM EVENT: ", event.target.value)
-
-    let userData = {
-      streamName: this.state.streamName,
-      streamDescription: this.state.streamDescription
-    }
-    API.saveStream(userData)
-  }
-
+  } 
+  
   handleClose = () => {
     this.setState({
       show: false,
@@ -39,12 +23,30 @@ class AddStream extends Component {
   };
 
   handleShow = () => {
-    this.setState({
-      show: true,
-      setShow: true
-    });
-    console.log(this.state.setShow);
+      this.setState({
+        show: true,
+        setShow: true
+      });
+      console.log(this.state.setShow);
   };
+
+  handleInputChange = event => {
+    console.log("EVENT:", event.target.value)
+    const { name, value }  = event.target
+    this.setState({[name]: value})
+  }
+
+  saveData = () => {
+    console.log("save data is being called")
+
+    let userData = {
+      streamName: this.state.streamName,
+      streamDescription: this.state.streamDescription
+    }
+    this.props.saveStream(userData) 
+    this.handleClose() 
+  }
+  
 
   render() {
     return (
@@ -63,15 +65,17 @@ class AddStream extends Component {
                 <Form.Label>Stream Name</Form.Label>
                 <Form.Control 
                   onChange={this.handleInputChange} 
-                  value= {this.state.streamName}
+                  name= "streamName"
+                  value={this.state.streamName}
                   type="text" 
                   placeholder="What Do You Want To Name Your Stream?" />
               </Form.Group>
               <Form.Group controlId="streamDescription">
                 <Form.Label>What Is The Purpose Of This Stream?</Form.Label>
                 <Form.Control 
-                  value={this.state.streamDescription}
                   onChange={this.handleInputChange}
+                  value={this.state.streamDescription}
+                  name="streamDescription"
                   as="textarea" 
                   rows="2" />
               </Form.Group>
@@ -79,10 +83,10 @@ class AddStream extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
-              Close
+              Go Back
             </Button>
-            <Button variant="primary" onClick={this.saveStream}>
-              Save Changes
+            <Button variant="primary" onClick={this.saveData}>
+              Create Stream!
             </Button>
           </Modal.Footer>
         </Modal>

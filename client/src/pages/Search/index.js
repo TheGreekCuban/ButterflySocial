@@ -49,6 +49,14 @@ class Search extends Component {
       )
       this.setState({ displayedStreams: filteredStreams });
     };
+
+    saveStream = userData => {
+      API.saveStream(userData).then(response => {
+        this.searchStreams()
+      }).catch(
+          error => console.log(error)
+      )
+    }
   
     render() {
         return (
@@ -67,7 +75,7 @@ class Search extends Component {
               handleInputChangeFilter={this.handleInputChangeFilter}
               streams={this.state.streams} 
             />
-            <AddStream/>
+            <AddStream saveStream={this.saveStream}/>
           </div>
         )
     }
