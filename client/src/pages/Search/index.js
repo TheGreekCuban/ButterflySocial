@@ -4,6 +4,7 @@ import API from "../../utils/API";
 import { StreamCard, StreamCardItem } from "../../components/StreamCard"
 import SearchForm from "../../components/SearchForm"
 import AddStream from "../../components/addStream"
+import './style.css';
 
 class Search extends Component {
     state = {
@@ -66,13 +67,17 @@ class Search extends Component {
         return <Redirect to={this.state.redirectTo}/>
       } 
         return (
-          <div className="container">
-            <SearchForm 
-              handleInputChangeFilter={this.handleInputChangeFilter}
-              streams={this.state.streams} 
-            />
-            <AddStream saveStream={this.saveStream}/>
-            <StreamCard>
+          <div className="searchContainer">
+            <div className="searchFilter"> 
+              <SearchForm
+                handleInputChangeFilter={this.handleInputChangeFilter}
+                streams={this.state.streams} 
+              />
+            </div>
+            <div className="cardButton">
+              <AddStream saveStream={this.saveStream}/>
+            </div>
+            <StreamCard className="cardContainer">
               {this.state.displayedStreams.map((element, index) => (
                 <StreamCardItem key={index} 
                 id={element._id} 

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
-import API from "../../utils/API"
-//import "./style.css";
 
 class AddStream extends Component {
 
@@ -51,7 +49,7 @@ class AddStream extends Component {
   render() {
     return (
       <>
-        <Button variant="primary" onClick={this.handleShow}>
+        <Button className="newStreamBtn" variant="primary" onClick={this.handleShow}>
           Create A New Stream!
         </Button>
 
