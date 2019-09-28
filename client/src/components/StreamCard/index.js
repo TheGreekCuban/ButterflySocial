@@ -1,8 +1,5 @@
 import React from "react";
-// import { Card, Col, CardTitle } from 'react-materialize';
 import API from "../../utils/API";
-//import { addBtnContainer, addBtn } from "../addBtn";
-
  
 export function StreamCard({children}) {
   return (
@@ -20,7 +17,7 @@ export function StreamCardItem(props) {
     <div className="card bg-secondary" style={{margin:'10px'}} key={props.id}>
       <div className="card-body">
         <h5 className="card-title">{props.name}</h5>
-        <h6 className="card-subtitle mb-2 text-muted">{props.date}</h6>
+        <div className="streamDescription"><p>{props.description}</p></div>
         <button className="btn btn-primary" data-streamid={props.id} data-userid={props.userID} onClick={props.saveFunction} href='#'>Subscribe</button>
       </div>
     </div>

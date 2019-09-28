@@ -11,9 +11,10 @@ class Search extends Component {
         displayedStreams: [],
         userID: "",
         search: "",
-        error: ""
+        error: "",
+
     }
- 
+
     searchStreams() {
         API.searchStreams()
         .then(response => {
@@ -39,32 +40,24 @@ class Search extends Component {
       }
       API.addUserToStream(userID, saveData)
     }
-
-    //check what a post route returns, might just need to do catch.
-    saveStream = event => {
-      event.preventDefault()
-      const streamName = event.target.value("streamTitle")
-      const streamDescription = event.target.value("streamDescription")
-      const streamData = {
-        streamName: streamName,
-        streamDescription: streamDescription
-      }
-      
-      API.saveStream(streamData)
-      .catch(err => console.log(err))
-    }
-
-    handleInputChange = event => {
-      console.log("SEARCH EVENT: ", event.target.value)
+    
+    handleInputChangeFilter = event => {
       let filteredStreams = this.state.streams.filter(
         (element) => {
           return element.streamName.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1
         }
       )
-      console.log("FILTERED STREAMS: ", filteredStreams)
       this.setState({ displayedStreams: filteredStreams });
     };
 
+    saveStream = userData => {
+      API.saveStream(userData).then(response => {
+        this.searchStreams()
+      }).catch(
+          error => console.log(error)
+      )
+    }
+  
     render() {
         return (
           <div className="container">
@@ -72,20 +65,18 @@ class Search extends Component {
               {this.state.displayedStreams.map((element, index) => (
                 <StreamCardItem key={index} 
                 id={element._id} 
-                name={element.streamName} 
+                name={element.streamName}
+                description={element.streamDescription} 
                 date={element.dateCreated} 
                 userID={this.props.userID} 
                 saveFunction={this.addUserToStream}/>
             ))}
             </StreamCard>
             <SearchForm 
-              handleFormSubmit={this.handleFormSubmit}
-              handleInputChange={this.handleInputChange}
+              handleInputChangeFilter={this.handleInputChangeFilter}
               streams={this.state.streams} 
             />
-            <AddStream
-              saveStream={this.saveStream}
-            />
+            <AddStream saveStream={this.saveStream}/>
           </div>
         )
     }
