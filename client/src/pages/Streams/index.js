@@ -11,11 +11,27 @@ class Streams extends Component {
     streams: [],
     messages: [],
     userID: null,
-    curStreamID: ""
+    curStreamID: "",
+    intervalID: ""
   };
 
+  componentDidMount() {
+    this.getUser();
+  }
+
+  // this function acts as a database watcher, getting messages every 5 seconds
+  messageWatcher = (streamID) => {
+    console.log(streamID)
+    this.setState({
+      intervalID: setInterval( () => { 
+        this.getMessages(streamID)
+      }, 5000)
+    })
+    console.log("timeout")
+    console.log(this.state.intervalID);
+  }
+
   // the getStream function is making a request to the server and grabbing the User document (object) within the User collection
-  
   getStream() {
     axios
       .get("/api/user/" + this.state.userID)
@@ -48,10 +64,6 @@ class Streams extends Component {
         });
       }
     });
-  }
-  componentDidMount() {
-    this.getUser();
-    console.log(this.state.userID);
   }
 
   unsubscribeUser(streamID) {
@@ -113,11 +125,15 @@ class Streams extends Component {
 
   handleStreamToggle = (event) => {
     event.preventDefault();
+    // stops the interval first before starting another one
+    clearInterval(this.state.intervalID);
     console.log(event.target.getAttribute("datavalue"));
     this.setState({
       curStreamID: event.target.getAttribute("datavalue")
     }, () => {
       this.getMessages(this.state.curStreamID)
+      // starts the interval
+      this.messageWatcher(this.state.curStreamID)
      })
     console.log(this.state.curStreamID);
   }
