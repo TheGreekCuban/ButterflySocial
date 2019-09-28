@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import { StreamCard, StreamCardItem } from "../../components/StreamCard"
 import SearchForm from "../../components/SearchForm"
 import AddStream from "../../components/addStream"
-import './style.css';
+import { CardDeck, Card, Button } from 'react-bootstrap/'
 
 class Search extends Component {
     state = {
@@ -67,17 +67,14 @@ class Search extends Component {
         return <Redirect to={this.state.redirectTo}/>
       } 
         return (
-          <div className="searchContainer">
-            <div className="searchFilter"> 
-              <SearchForm
-                handleInputChangeFilter={this.handleInputChangeFilter}
-                streams={this.state.streams} 
-              />
-            </div>
-            <div className="cardButton">
-              <AddStream saveStream={this.saveStream}/>
-            </div>
-            <StreamCard className="cardContainer">
+          <div className="container">
+            <SearchForm 
+              handleInputChangeFilter={this.handleInputChangeFilter}
+              streams={this.state.streams} 
+            />
+            <AddStream saveStream={this.saveStream}/>
+            
+            {/* <StreamCard>
               {this.state.displayedStreams.map((element, index) => (
                 <StreamCardItem key={index} 
                 id={element._id} 
@@ -87,7 +84,21 @@ class Search extends Component {
                 userID={this.props.userID} 
                 saveFunction={this.addUserToStream}/>
             ))}
-            </StreamCard>
+            </StreamCard> */}
+            <CardDeck style={{marginTop: "20px"}}>
+              {this.state.displayedStreams.map((element, index) => (
+              <Card key={index} style={{ minWidth: "20rem", maxWidth: "20rem", height: "20rem", display: "inline-block", margin: "10px" }}>
+                <Card.Header style={{backgroundColor: "coral", color: "black"}}>{element.streamName}</Card.Header>
+                <Card.Body style={{height: "80%", overflow: "hidden", textOverflow: "ellipsis"}}>
+                  {/* <Card.Title>{element.streamName}</Card.Title> */}
+                  <Card.Text style={{height: "80%", overflow: "scroll"}}>
+                    {element.streamDescription}
+                  </Card.Text>
+                  <Button variant="outline-dark" style={{verticalAlign: "bottom"}} data-streamid={element._id} data-userid={this.props.userID} onClick={this.addUserToStream}>Subscribe</Button>
+                </Card.Body>
+              </Card>
+              ))}
+            </CardDeck>
           </div>
         )
     }

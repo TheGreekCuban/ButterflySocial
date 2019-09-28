@@ -4,6 +4,7 @@ import axios from "axios";
 import Navigation from "../../components/Nav";
 import AddMessage from "../../components/AddMessage";
 import { Toast, Container, ButtonToolbar, ToggleButton, ToggleButtonGroup, Tab, Row, Col, Nav, Button } from "react-bootstrap";
+import "./style.css";
 
 
 class Streams extends Component {
@@ -163,16 +164,16 @@ class Streams extends Component {
                 </Nav>
               </Col>
               <Col sm={9}>
-                <Tab.Content>
-                  <Toast>
-                    <Toast.Header>
-                      <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-                      <strong className="mr-auto">Butterfly Help</strong>
-                      {/* <small>11 mins ago</small> */}
-                    </Toast.Header>
-                    <Toast.Body>Get started by subscribing to an available <a href="/search">stream</a></Toast.Body>
-                  </Toast>
-                </Tab.Content>
+                  <Tab.Content>
+                    <Toast>
+                      <Toast.Header>
+                        <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+                        <strong className="mr-auto">Butterfly Help</strong>
+                        {/* <small>11 mins ago</small> */}
+                      </Toast.Header>
+                      <Toast.Body>Get started by subscribing to an available <a href="/search">stream</a></Toast.Body>
+                    </Toast>
+                  </Tab.Content>
               </Col>
             </Row>
           </Tab.Container>
@@ -218,16 +219,14 @@ class Streams extends Component {
               {/* Content area rendering in right-hand large column */}
               <Col sm={7}>
                 <Tab.Content>
-                  <br></br>
-                  <br></br>
                   {/* <Tab.Pane eventKey="first">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                   </Tab.Pane> */}
                   {this.state.messages.map((messageObject, index) => (
-                    <Toast>
+                    <Toast style={{margin: "5px auto"}}>
                       <Toast.Header>
                       <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-                      <strong className="mr-auto">{messageObject.user.username}</strong>
+                      <strong className="mr-auto" style={{color: "coral"}}>{messageObject.user.username}</strong>
                       <small>{messageObject.date}</small>
                       </Toast.Header>
                       <Toast.Body>{messageObject.body}</Toast.Body>
