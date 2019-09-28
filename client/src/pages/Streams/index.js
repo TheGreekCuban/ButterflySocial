@@ -14,8 +14,20 @@ class Streams extends Component {
     curStreamID: ""
   };
 
+  componentDidMount() {
+    this.getUser();
+  }
+
+  // this function acts as a database listener, getting messages every 5 seconds
+  messageListener = (streamID) => {
+    console.log(streamID)
+    setInterval( () => { 
+      this.getMessages(streamID)
+    }, 5000);
+    console.log("timeout")
+  }
+
   // the getStream function is making a request to the server and grabbing the User document (object) within the User collection
-  
   getStream() {
     axios
       .get("/api/user/" + this.state.userID)
@@ -48,10 +60,6 @@ class Streams extends Component {
         });
       }
     });
-  }
-  componentDidMount() {
-    this.getUser();
-    console.log(this.state.userID);
   }
 
   unsubscribeUser(streamID) {
@@ -118,6 +126,7 @@ class Streams extends Component {
       curStreamID: event.target.getAttribute("datavalue")
     }, () => {
       this.getMessages(this.state.curStreamID)
+      this.messageListener(this.state.curStreamID)
      })
     console.log(this.state.curStreamID);
   }
