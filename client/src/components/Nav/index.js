@@ -54,17 +54,13 @@ class NavigationBar extends Component {
     
     render (){
         return (
-        <Navbar bg="dark" expand="lg">
-            <Navbar.Brand href="/streams">Butterfly</Navbar.Brand>
+        <Navbar className="navv" bg="dark" expand="lg">
+            <Navbar.Brand href="/streams" >Butterfly</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     {this.options()}
                 </Nav>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-primary">Search</Button>
-                </Form>
             </Navbar.Collapse>
         </Navbar>
         )
