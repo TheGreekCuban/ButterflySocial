@@ -49,11 +49,7 @@ class AddStream extends Component {
   render() {
     return (
       <>
-<<<<<<< HEAD
         <Button variant="dark" onClick={this.handleShow}>
-=======
-        <Button className="newStreamBtn" variant="primary" onClick={this.handleShow}>
->>>>>>> 94ddcf5a21fc21f5da2c35757660466370ba12df
           Create A New Stream!
         </Button>
 
