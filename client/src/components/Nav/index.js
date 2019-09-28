@@ -40,27 +40,25 @@ class NavigationBar extends Component {
     options = ()=> {
         if (this.state.loggedIn){
             return (
-                <NavDropdown title="Options" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/streams">Streams</NavDropdown.Item> 
-                <NavDropdown.Item href="/search">Search</NavDropdown.Item> 
+              <Nav className="mr-auto">
+                <Nav.Link href="/streams">Streams</Nav.Link> 
+                <Nav.Link href="/search">Search</Nav.Link> 
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={this.props.logoutFunction}>Logout</NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link onClick={this.props.logoutFunction}>Logout</Nav.Link>
+              </Nav>
             )
         } else {
             return ""
         }
     }
     
-
     render (){
         return (
         <Navbar bg="dark" expand="lg">
-            <Navbar.Brand href="/">Butterfly</Navbar.Brand>
+            <Navbar.Brand href="/streams">Butterfly</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
                     {this.options()}
                 </Nav>
                 <Form inline>

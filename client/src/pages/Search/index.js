@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-//import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import API from "../../utils/API";
 import { StreamCard, StreamCardItem } from "../../components/StreamCard"
 import SearchForm from "../../components/SearchForm"
@@ -12,7 +12,7 @@ class Search extends Component {
         userID: "",
         search: "",
         error: "",
-
+        redirectTo: null
     }
 
     searchStreams() {
@@ -38,7 +38,10 @@ class Search extends Component {
       const saveData = {
         streamID : event.target.getAttribute("data-streamid")
       }
-      API.addUserToStream(userID, saveData)
+      API.addUserToStream(userID, saveData).then(response => {
+        this.setState({redirectTo: "/streams"})
+        console.log("REDIRECT: ", this.state.redirectTo)
+      })
     }
     
     handleInputChangeFilter = event => {
@@ -59,8 +62,16 @@ class Search extends Component {
     }
   
     render() {
+      if (this.state.redirectTo) {
+        return <Redirect to={this.state.redirectTo}/>
+      } 
         return (
           <div className="container">
+            <SearchForm 
+              handleInputChangeFilter={this.handleInputChangeFilter}
+              streams={this.state.streams} 
+            />
+            <AddStream saveStream={this.saveStream}/>
             <StreamCard>
               {this.state.displayedStreams.map((element, index) => (
                 <StreamCardItem key={index} 
@@ -72,11 +83,6 @@ class Search extends Component {
                 saveFunction={this.addUserToStream}/>
             ))}
             </StreamCard>
-            <SearchForm 
-              handleInputChangeFilter={this.handleInputChangeFilter}
-              streams={this.state.streams} 
-            />
-            <AddStream saveStream={this.saveStream}/>
           </div>
         )
     }
