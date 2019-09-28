@@ -4,6 +4,7 @@ import API from "../../utils/API";
 import { StreamCard, StreamCardItem } from "../../components/StreamCard"
 import SearchForm from "../../components/SearchForm"
 import AddStream from "../../components/addStream"
+import { CardDeck, Card, Button } from 'react-bootstrap/'
 
 class Search extends Component {
     state = {
@@ -72,7 +73,8 @@ class Search extends Component {
               streams={this.state.streams} 
             />
             <AddStream saveStream={this.saveStream}/>
-            <StreamCard>
+            
+            {/* <StreamCard>
               {this.state.displayedStreams.map((element, index) => (
                 <StreamCardItem key={index} 
                 id={element._id} 
@@ -82,7 +84,21 @@ class Search extends Component {
                 userID={this.props.userID} 
                 saveFunction={this.addUserToStream}/>
             ))}
-            </StreamCard>
+            </StreamCard> */}
+            <CardDeck style={{marginTop: "20px"}}>
+              {this.state.displayedStreams.map((element, index) => (
+              <Card key={index} style={{ minWidth: "20rem", maxWidth: "20rem", height: "14rem", display: "inline-block", margin: "10px" }}>
+                <Card.Header style={{backgroundColor: "coral", color: "black"}}>{element.streamName}</Card.Header>
+                <Card.Body style={{height: "80%"}}>
+                  {/* <Card.Title>{element.streamName}</Card.Title> */}
+                  <Card.Text>
+                    {element.streamDescription}
+                  </Card.Text>
+                  <Button variant="outline-dark" style={{verticalAlign: "bottom"}} data-streamid={element._id} data-userid={this.props.userID} onClick={this.addUserToStream}>Subscribe</Button>
+                </Card.Body>
+              </Card>
+              ))}
+            </CardDeck>
           </div>
         )
     }
