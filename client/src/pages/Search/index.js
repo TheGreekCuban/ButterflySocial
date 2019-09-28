@@ -87,11 +87,11 @@ class Search extends Component {
             </StreamCard> */}
             <CardDeck style={{marginTop: "20px"}}>
               {this.state.displayedStreams.map((element, index) => (
-              <Card key={index} style={{ minWidth: "20rem", maxWidth: "20rem", height: "14rem", display: "inline-block", margin: "10px" }}>
+              <Card key={index} style={{ minWidth: "20rem", maxWidth: "20rem", height: "20rem", display: "inline-block", margin: "10px" }}>
                 <Card.Header style={{backgroundColor: "coral", color: "black"}}>{element.streamName}</Card.Header>
-                <Card.Body style={{height: "80%"}}>
+                <Card.Body style={{height: "80%", overflow: "hidden", textOverflow: "ellipsis"}}>
                   {/* <Card.Title>{element.streamName}</Card.Title> */}
-                  <Card.Text>
+                  <Card.Text style={{height: "80%", overflow: "scroll"}}>
                     {element.streamDescription}
                   </Card.Text>
                   <Button variant="outline-dark" style={{verticalAlign: "bottom"}} data-streamid={element._id} data-userid={this.props.userID} onClick={this.addUserToStream}>Subscribe</Button>
