@@ -8,12 +8,11 @@
 ## Demo Video #1: Sign Up!
 ![](/client/public/images/1.gif)
 
-
-## Demo Video #2: Sign In And Search For A Stream To Subscribe Too!
-![](/client/public/images/2.gif)
-
-## Demo Video #3: Create A Stream!
+## Demo Video #2: Create A Stream!
 ![](/client/public/images/3.gif)
+
+## Demo Video #3: Sign In And Search For A Stream To Subscribe Too!
+![](/client/public/images/2.gif)
 
 ## Demo Video #4: Send Messages To The Stream!
 ![](/client/public/images/4.gif)
