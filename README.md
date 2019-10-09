@@ -10,7 +10,7 @@
 
 
 ## Demo Video #2: Sign In And Search For A Stream To Subscribe Too!
-![](/client/public/images/2.g3if)
+![](/client/public/images/2.gif)
 
 ## Demo Video #3: Create A Stream!
 ![](/client/public/images/3.gif)
