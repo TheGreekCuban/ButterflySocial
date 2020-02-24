@@ -2,7 +2,7 @@
 
 ## Learners fail when they don't make regular, persistent social connections at their institution/organization. This problem is only getting worse because class sizes are getting larger, online courses are becoming more common. This app helps solve that issue because it is a social link between students/employees and facutly. In addition, in future versions it gives the faculty the ability to administer tests, take attendance or even review maintenance requests. 
 
-## This is a Full Stack application built on the MERN stack. Technology used includes MongoDB, Express, React.js, Node.js.
+## This is a Full Stack application built on the MERN stack. Technology used includes MongoDB, Express, React.js, Node.js
 
 
 ## Demo Video #1: Sign Up!
